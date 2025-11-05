@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Te'chi - Pempek Kecil Terbaik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+        cursor: none;
+      }
+
+      /* Custom Cursor */
+      .custom-cursor {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #7f1d1d;
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        transition: all 0.15s ease;
+        transition-property: background, transform, border;
+      }
+
+      .cursor-dot {
+        width: 6px;
+        height: 6px;
+        background: #7f1d1d;
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        transition: all 0.1s ease;
+      }
+
+      .custom-cursor.hover {
+        transform: scale(2);
+        background: rgba(127, 29, 29, 0.1);
+        border-color: #991b1b;
+      }
+
+      /* Floating Animation */
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(5deg);
+        }
+      }
+
+      @keyframes floatReverse {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(20px) rotate(-5deg);
+        }
+      }
+
+      .float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .float-reverse {
+        animation: floatReverse 8s ease-in-out infinite;
+      }
+
+      /* Gradient Animation */
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .animate-gradient {
+        background-size: 200% 200%;
+        animation: gradient 15s ease infinite;
+      }
+
+      /* Reveal Animation */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Glassmorphism */
+      .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      /* Pulse Effect */
+      @keyframes pulse-slow {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.8;
+          transform: scale(1.05);
+        }
+      }
+
+      .pulse-slow {
+        animation: pulse-slow 3s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 overflow-x-hidden">
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Navbar -->
+    <nav class="glass fixed w-full top-0 z-50 shadow-lg">
+      <div class="container mx-auto px-6 lg:px-12 py-5">
+        <div class="flex justify-between items-center">
+          <!-- Logo -->
+          <div class="flex items-center space-x-4 group">
+            <div
+              class="w-14 h-14 bg-gradient-to-br from-red-900 via-red-700 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl transform group-hover:rotate-12 transition-all duration-500"
+            >
+              <span class="text-white font-black text-2xl">T</span>
+            </div>
+            <span
+              class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
+              >Te'chi</span
+            >
+          </div>
+
+          <!-- Nav Links -->
+          <div class="hidden lg:flex space-x-10">
+            <a
+              href="#home"
+              class="text-gray-800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
+              >Home</a
+            >
+            <a
+              href="#menu"
+              class="text-gray-800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
+              >Menu</a
+            >
+            <a
+              href="#order"
+              class="text-gray-800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
+              >Promo</a
+            >
+            <a
+              href="#about"
+              class="text-gray-800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
+              >About</a
+            >
+          </div>
+
+          <!-- CTA Button -->
+          <button
+            class="hidden lg:block bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-8 py-3 rounded-full font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+          >
+            Pesan Sekarang
+          </button>
+
+          <!-- Mobile Menu -->
+          <button
+            class="lg:hidden text-gray-800 hover:text-red-900 transition-colors duration-300"
+          >
+            <svg
+              class="w-8 h-8"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="relative min-h-screen flex items-center pt-24 pb-20 bg-gradient-to-br from-pink-100 via-red-50 to-orange-100 animate-gradient overflow-hidden"
+    >
+      <!-- Decorative Elements -->
+      <div
+        class="absolute top-20 left-10 w-72 h-72 bg-red-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 float"
+      ></div>
+      <div
+        class="absolute top-40 right-20 w-96 h-96 bg-orange-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 float-reverse"
+      ></div>
+      <div
+        class="absolute bottom-20 left-1/3 w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 float"
+      ></div>
+
+      <div class="container mx-auto px-6 lg:px-12 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <!-- Text Content -->
+          <div class="text-center lg:text-left reveal space-y-8">
+            <div class="inline-block">
+              <span
+                class="inline-flex items-center bg-gradient-to-r from-red-600 to-orange-600 text-white px-6 py-3 rounded-full text-sm font-bold shadow-lg pulse-slow"
+              >
+                <svg
+                  class="w-5 h-5 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  ></path>
+                </svg>
+                Best Seller Product
+              </span>
+            </div>
+
+            <h1
+              class="text-6xl lg:text-7xl xl:text-8xl font-black leading-tight"
+            >
+              <span
+                class="bg-gradient-to-r from-red-900 via-red-700 to-orange-600 bg-clip-text text-transparent"
+                >Pempek Kecil</span
+              ><br />
+              <span class="text-gray-800">Te'chi</span>
+            </h1>
+
+            <p
+              class="text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-2xl"
+            >
+              Kelezatan
+              <span class="font-bold text-red-900">khas Palembang</span> yang
+              menggugah selera! Dibuat dari
+              <span class="font-bold text-red-900">ikan pilihan</span> dengan
+              resep turun temurun. Rasa autentik, gurih, dan segar yang bikin
+              ketagihan.
+            </p>
+
+            <div
+              class="flex flex-col sm:flex-row items-center lg:items-start gap-6"
+            >
+              <div class="text-center lg:text-left">
+                <p class="text-gray-600 text-lg mb-2">Harga Mulai Dari</p>
+                <div class="flex items-baseline gap-2">
+                  <span
+                    class="text-6xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
+                    >Rp3.000</span
+                  >
+                  <span class="text-3xl text-gray-500 font-semibold">/Pcs</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-6 pt-4">
+              <button
+                class="group relative bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-2xl hover:shadow-red-900/50 transform hover:scale-105 transition-all duration-300 overflow-hidden"
+              >
+                <span
+                  class="relative z-10 flex items-center justify-center gap-3"
+                >
+                  Pesan Sekarang
+                  <svg
+                    class="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    ></path>
+                  </svg>
+                </span>
+                <div
+                  class="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+                ></div>
+              </button>
+
+              <button
+                class="group bg-white hover:bg-gray-50 text-red-900 px-10 py-5 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-red-900"
+              >
+                <span class="flex items-center justify-center gap-3">
+                  Lihat Menu
+                  <svg
+                    class="w-6 h-6 group-hover:rotate-90 transition-transform duration-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Image -->
+          <div class="reveal relative">
+            <div class="relative z-10">
+              <!-- Main Card -->
+              <div
+                class="relative transform hover:scale-105 transition-all duration-700 hover:rotate-2"
+              >
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-red-600 to-orange-600 rounded-3xl transform rotate-6 blur-xl opacity-30"
+                ></div>
+                <div class="relative glass rounded-3xl shadow-2xl p-8 lg:p-12">
+                  <div
+                    class="aspect-square bg-gradient-to-br from-amber-200 via-orange-200 to-red-200 rounded-2xl flex items-center justify-center overflow-hidden"
+                  >
+                    <div class="text-center">
+                      <div
+                        class="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-red-400 to-orange-400 rounded-full flex items-center justify-center shadow-xl"
+                      >
+                        <svg
+                          class="w-20 h-20 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          ></path>
+                        </svg>
+                      </div>
+                      <p class="text-2xl font-bold text-gray-600">
+                        Pempek Te'chi
+                      </p>
+                      <p class="text-gray-500">Product Image</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating Badge -->
+              <div
+                class="absolute -top-6 -right-6 bg-gradient-to-br from-green-400 to-emerald-600 text-white px-6 py-4 rounded-2xl shadow-2xl transform rotate-12 hover:rotate-0 transition-all duration-300 z-20"
+              >
+                <p class="font-black text-2xl">100%</p>
+                <p class="font-bold text-sm">Halal</p>
+              </div>
+
+              <!-- Stats Cards -->
+              <div
+                class="absolute -bottom-6 -left-6 glass px-6 py-4 rounded-2xl shadow-xl z-20 hover:scale-110 transition-transform duration-300"
+              >
+                <p class="text-3xl font-black text-red-900">500+</p>
+                <p class="font-semibold text-gray-700">Happy Customers</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Order Section -->
+    <section id="order" class="relative py-32 bg-white overflow-hidden">
+      <!-- Decorative Background -->
+      <div class="absolute top-0 left-0 w-full h-full opacity-5">
+        <div
+          class="absolute top-20 left-10 w-64 h-64 bg-red-500 rounded-full filter blur-3xl"
+        ></div>
+        <div
+          class="absolute bottom-20 right-10 w-96 h-96 bg-orange-500 rounded-full filter blur-3xl"
+        ></div>
+      </div>
+
+      <div class="container mx-auto px-6 lg:px-12 relative z-10">
+        <div class="text-center mb-20 reveal">
+          <span
+            class="inline-block bg-red-100 text-red-900 px-6 py-3 rounded-full text-sm font-bold mb-6"
+            >Mudah & Cepat</span
+          >
+          <h2 class="text-5xl lg:text-6xl font-black text-gray-900 mb-6">
+            Cara
+            <span
+              class="bg-gradient-to-r from-red-900 to-orange-600 bg-clip-text text-transparent"
+              >Pemesanan</span
+            >
+          </h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Hanya 4 langkah mudah untuk menikmati pempek lezat kami
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Step 1 -->
+          <div
+            class="reveal group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-red-200 transform hover:-translate-y-4"
+          >
+            <div
+              class="absolute -top-6 left-8 w-12 h-12 bg-gradient-to-br from-red-900 to-red-700 rounded-xl flex items-center justify-center shadow-xl text-white font-black text-xl"
+            >
+              1
+            </div>
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-red-100 to-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500"
+            >
+              <svg
+                class="w-10 h-10 text-red-900"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3 text-center">
+              Pilih Menu
+            </h3>
+            <p class="text-gray-600 text-center">
+              Browse menu dan pilih pempek favorit Anda
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div
+            class="reveal group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-red-200 transform hover:-translate-y-4"
+            style="transition-delay: 0.1s"
+          >
+            <div
+              class="absolute -top-6 left-8 w-12 h-12 bg-gradient-to-br from-red-900 to-red-700 rounded-xl flex items-center justify-center shadow-xl text-white font-black text-xl"
+            >
+              2
+            </div>
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-red-100 to-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500"
+            >
+              <svg
+                class="w-10 h-10 text-red-900"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3 text-center">
+              Klik Pesan
+            </h3>
+            <p class="text-gray-600 text-center">
+              Tekan tombol pesan untuk melanjutkan
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div
+            class="reveal group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-red-200 transform hover:-translate-y-4"
+            style="transition-delay: 0.2s"
+          >
+            <div
+              class="absolute -top-6 left-8 w-12 h-12 bg-gradient-to-br from-red-900 to-red-700 rounded-xl flex items-center justify-center shadow-xl text-white font-black text-xl"
+            >
+              3
+            </div>
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-red-100 to-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500"
+            >
+              <svg
+                class="w-10 h-10 text-red-900"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3 text-center">
+              Chat WhatsApp
+            </h3>
+            <p class="text-gray-600 text-center">
+              Terhubung langsung ke WhatsApp kami
+            </p>
+          </div>
+
+          <!-- Step 4 -->
+          <div
+            class="reveal group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-red-200 transform hover:-translate-y-4"
+            style="transition-delay: 0.3s"
+          >
+            <div
+              class="absolute -top-6 left-8 w-12 h-12 bg-gradient-to-br from-red-900 to-red-700 rounded-xl flex items-center justify-center shadow-xl text-white font-black text-xl"
+            >
+              4
+            </div>
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-red-100 to-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500"
+            >
+              <svg
+                class="w-10 h-10 text-red-900"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3 text-center">
+              Bayar & Terima
+            </h3>
+            <p class="text-gray-600 text-center">
+              Lakukan pembayaran dan pesanan diantar
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bundling Section -->
+    <section
+      id="menu"
+      class="relative py-32 bg-gradient-to-br from-red-900 via-red-800 to-orange-800 overflow-hidden"
+    >
+      <!-- Animated Background -->
+      <div class="absolute inset-0 opacity-10">
+        <div
+          class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full filter blur-3xl float"
+        ></div>
+        <div
+          class="absolute bottom-0 right-0 w-96 h-96 bg-yellow-300 rounded-full filter blur-3xl float-reverse"
+        ></div>
+      </div>
+
+      <div class="container mx-auto px-6 lg:px-12 relative z-10">
+        <div class="text-center mb-20 reveal">
+          <span
+            class="inline-block bg-white/20 text-white px-6 py-3 rounded-full text-sm font-bold mb-6"
+            >Special Offer</span
+          >
+          <h2 class="text-5xl lg:text-6xl font-black text-white mb-6">
+            Bundling <span class="text-yellow-300">Hemat</span> Pempek
+          </h2>
+          <p class="text-xl text-white/90 max-w-2xl mx-auto">
+            Dapatkan harga spesial dengan paket bundling kami!
+          </p>
+        </div>
+
+        <div class="max-w-6xl mx-auto">
+          <div
+            class="glass rounded-3xl shadow-2xl overflow-hidden transform hover:scale-105 transition-all duration-700 reveal"
+          >
+            <div class="grid lg:grid-cols-2 gap-0">
+              <!-- Image Side -->
+              <div
+                class="relative p-12 bg-gradient-to-br from-amber-100 via-orange-100 to-red-100"
+              >
+                <!-- Best Deal Badge -->
+                <div class="absolute top-8 right-8 z-20">
+                  <div
+                    class="bg-gradient-to-br from-green-500 to-emerald-600 text-white px-6 py-3 rounded-2xl font-black text-lg shadow-2xl transform rotate-12 hover:rotate-0 transition-all duration-300 pulse-slow"
+                  >
+                    🔥 Best Deal
+                  </div>
+                </div>
+
+                <div class="relative h-full flex items-center justify-center">
+                  <div class="text-center">
+                    <div
+                      class="w-64 h-64 mx-auto mb-6 bg-gradient-to-br from-amber-300 to-orange-400 rounded-full flex items-center justify-center shadow-2xl float"
+                    >
+                      <svg
+                        class="w-32 h-32 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                        ></path>
+                      </svg>
+                    </div>
+                    <h3 class="text-3xl font-black text-gray-800 mb-2">
+                      Paket Bundling
+                    </h3>
+                    <p class="text-xl text-gray-700 font-semibold">
+                      Premium Package
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Content Side -->
+              <div class="p-12 bg-white">
+                <div class="h-full flex flex-col justify-center">
+                  <h3 class="text-4xl font-black text-gray-900 mb-8">
+                    Paket Hemat Keluarga
+                  </h3>
+
+                  <div class="space-y-4 mb-8">
+                    <div
+                      class="flex items-center gap-4 p-4 bg-red-50 rounded-xl"
+                    >
+                      <div
+                        class="w-12 h-12 bg-red-900 rounded-xl flex items-center justify-center flex-shrink-0"
+                      >
+                        <svg
+                          class="w-6 h-6 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                      </div>
+                      <p class="text-xl font-bold text-gray-800">
+                        40 buah pempek kecil
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Price -->
+                  <div
+                    class="bg-gradient-to-br from-red-900 to-orange-700 rounded-2xl p-8 mb-8 shadow-xl"
+                  >
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-white/80 text-lg mb-2">Harga Paket</p>
+                        <p class="text-5xl font-black text-white">Rp200.000</p>
+                      </div>
+                      <div class="text-right">
+                        <p class="text-white/80 text-lg mb-2">Hemat</p>
+                        <p class="text-3xl font-black text-yellow-300">30%</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    class="w-full group relative bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-8 py-6 rounded-2xl font-black text-xl shadow-2xl hover:shadow-orange-500/50 transform hover:scale-105 transition-all duration-300 overflow-hidden"
+                  >
+                    <span
+                      class="relative z-10 flex items-center justify-center gap-3"
+                    >
+                      Pesan Paket Sekarang
+                      <svg
+                        class="w-7 h-7 group-hover:translate-x-2 transition-transform duration-300"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        ></path>
+                      </svg>
+                    </span>
+                    <div
+                      class="absolute inset-0 bg-gradient-to-r from-yellow-500 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+                    ></div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-16">
+      <div class="container mx-auto px-6 lg:px-12">
+        <div class="grid md:grid-cols-3 gap-12 mb-12">
+          <!-- Brand -->
+          <div>
+            <div class="flex items-center space-x-4 mb-6">
+              <div
+                class="w-14 h-14 bg-gradient-to-br from-red-600 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl"
+              >
+                <span class="text-white font-black text-2xl">T</span>
+              </div>
+              <span class="text-3xl font-black text-white">Te'chi</span>
+            </div>
+            <p class="text-gray-400 text-lg leading-relaxed">
+              Pempek khas Palembang dengan cita rasa autentik dan kualitas
+              terbaik untuk keluarga Indonesia.
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h4 class="text-white font-bold text-xl mb-6">Quick Links</h4>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  href="#home"
+                  class="text-gray-400 hover:text-white text-lg transition-colors duration-300"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#menu"
+                  class="text-gray-400 hover:text-white text-lg transition-colors duration-300"
+                  >Menu</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#order"
+                  class="text-gray-400 hover:text-white text-lg transition-colors duration-300"
+                  >Cara Pesan</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  class="text-gray-400 hover:text-white text-lg transition-colors duration-300"
+                  >Tentang Kami</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <h4 class="text-white font-bold text-xl mb-6">Hubungi Kami</h4>
+            <div class="space-y-4">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-red-900/30 rounded-lg flex items-center justify-center"
+                >
+                  <svg
+                    class="w-5 h-5 text-red-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    ></path>
+                  </svg>
+                </div>
+                <span class="text-gray-400 text-lg">+62 812-3456-7890</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-red-900/30 rounded-lg flex items-center justify-center"
+                >
+                  <svg
+                    class="w-5 h-5 text-red-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                </div>
+                <span class="text-gray-400 text-lg">info@techi.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-8">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center gap-4"
+          >
+            <p class="text-gray-500 text-center">
+              © 2025 Te'chi. All rights reserved.
+            </p>
+            <div class="flex gap-4">
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 hover:bg-red-900 rounded-full flex items-center justify-center transition-colors duration-300"
+              >
+                <svg
+                  class="w-5 h-5 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                  ></path>
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 hover:bg-red-900 rounded-full flex items-center justify-center transition-colors duration-300"
+              >
+                <svg
+                  class="w-5 h-5 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                  ></path>
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 hover:bg-red-900 rounded-full flex items-center justify-center transition-colors duration-300"
+              >
+                <svg
+                  class="w-5 h-5 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+                  ></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Custom Cursor
+      const cursor = document.querySelector(".custom-cursor");
+      const cursorDot = document.querySelector(".cursor-dot");
+
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+        cursorDot.style.left = e.clientX + "px";
+        cursorDot.style.top = e.clientY + "px";
+      });
+
+      // Hover effect on interactive elements
+      const hoverElements = document.querySelectorAll("a, button");
+      hoverElements.forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          cursor.classList.add("hover");
+        });
+        el.addEventListener("mouseleave", () => {
+          cursor.classList.remove("hover");
+        });
+      });
+
+      // Scroll Reveal Animation
+      const reveals = document.querySelectorAll(".reveal");
+
+      const revealOnScroll = () => {
+        reveals.forEach((element) => {
+          const elementTop = element.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+
+          if (elementTop < windowHeight - 100) {
+            element.classList.add("active");
+          }
+        });
+      };
+
+      window.addEventListener("scroll", revealOnScroll);
+      revealOnScroll();
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
