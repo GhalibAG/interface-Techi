@@ -161,31 +161,306 @@
       .menu-card.hidden {
         display: none;
       }
+
+      /* Modal Animation */
+      .modal-overlay {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+      }
+
+      .modal-content {
+        transform: scale(0.9) translateY(20px);
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .modal-overlay.active .modal-content {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+
+      /* Platform Button Hover */
+      .platform-btn {
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .platform-btn::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .platform-btn:hover::before {
+        width: 300px;
+        height: 300px;
+      }
+
+      .platform-btn:hover {
+        transform: translateY(-8px) scale(1.05);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Product Image in Modal */
+      .modal-product-image {
+        transition: all 0.5s ease;
+      }
+
+      .modal-product-image:hover {
+        transform: scale(1.05) rotate(2deg);
+      }
+
+      /* Custom CSS for Mobile Menu */
+      #mobile-menu {
+        transition: transform 0.3s ease-in-out;
+        transform: translateX(100%);
+        /* Z-index 40 sudah benar untuk di bawah navbar (z-50) */
+      }
+      #mobile-menu.open {
+        transform: translateX(0);
+      }
+
+      /* Penyesuaian Sticky Filter Top */
+      .sticky-filter {
+        top: 80px; /* Menyesuaikan dengan tinggi navbar agar tidak menutupi filter */
+        z-index: 30; /* Ditingkatkan agar filter sticky berada di atas konten saat scroll */
+      }
+
+      /* Mengubah Z-index Navbar menjadi 50 (z-50) di HTML agar menjadi layer teratas */
     </style>
   </head>
   <body class="bg-gray-50 overflow-x-hidden">
-    <!-- Custom Cursor -->
     <div class="custom-cursor"></div>
     <div class="cursor-dot"></div>
 
-    <!-- Navbar -->
-    <nav class="glass fixed w-full top-0 z-50 shadow-lg">
+    <div
+      id="orderModal"
+      class="modal-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4"
+    >
+      <div
+        class="modal-content bg-white rounded-3xl max-w-4xl w-full shadow-2xl overflow-hidden"
+      >
+        <div
+          class="bg-gradient-to-r from-red-900 to-red-700 p-6 relative overflow-hidden"
+        >
+          <div
+            class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"
+          ></div>
+          <div
+            class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12"
+          ></div>
+          <div class="relative flex justify-between items-center">
+            <h2 class="text-3xl font-black text-white">
+              Pilih Platform Pemesanan
+            </h2>
+            <button
+              onclick="closeModal()"
+              class="text-white/80 hover:text-white transition-colors"
+            >
+              <svg
+                class="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="p-8">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <div
+                class="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl overflow-hidden shadow-lg"
+              >
+                <img
+                  id="modalProductImage"
+                  src=""
+                  alt=""
+                  class="modal-product-image w-full h-64 object-cover"
+                />
+              </div>
+
+              <div
+                class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 shadow-lg"
+              >
+                <div class="flex items-start justify-between mb-4">
+                  <div>
+                    <span
+                      class="text-sm font-semibold text-gray-500 uppercase tracking-wide"
+                      >Menu Dipilih</span
+                    >
+                    <h3
+                      id="modalMenuName"
+                      class="text-2xl font-black text-gray-900 mt-1"
+                    >
+                      Aneka Pempek
+                    </h3>
+                  </div>
+                </div>
+
+                <p
+                  id="modalMenuDesc"
+                  class="text-gray-600 mb-6 leading-relaxed"
+                >
+                  Pempek kecil dengan rasa ikan yang kuat
+                </p>
+
+                <div
+                  class="flex items-center justify-between pt-4 border-t-2 border-gray-200"
+                >
+                  <span class="text-lg font-bold text-gray-700"
+                    >Harga Satuan</span
+                  >
+                  <span
+                    id="modalPrice"
+                    class="text-4xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
+                    >Rp3.000</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col justify-center">
+              <h3 class="text-xl font-black text-gray-900 mb-6 text-center">
+                Pesan Melalui
+              </h3>
+              <div class="space-y-4">
+                <button
+                  onclick="orderVia('whatsapp')"
+                  class="platform-btn w-full bg-gradient-to-br from-red-600 to-red-800 text-white p-6 rounded-2xl shadow-xl relative group"
+                >
+                  <div class="relative z-10 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                      <div class="w-16 h-16 flex items-center justify-center">
+                        <img src="./assets/waicon.png" alt="" />
+                      </div>
+                      <div class="text-left">
+                        <h4 class="font-black text-xl mb-1">WhatsApp</h4>
+                        <p class="text-sm text-white/90">
+                          Chat langsung dengan admin
+                        </p>
+                      </div>
+                    </div>
+                    <svg
+                      class="w-6 h-6 group-hover:translate-x-2 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      ></path>
+                    </svg>
+                  </div>
+                </button>
+
+                <button
+                  onclick="orderVia('gojek')"
+                  class="platform-btn w-full bg-gradient-to-br from-red-600 to-red-800 h text-white p-6 rounded-2xl shadow-xl relative group"
+                >
+                  <div class="relative z-10 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                      <div class="w-16 h-16 flex items-center justify-center">
+                        <img src="./assets/gojekicon.png" alt="" />
+                      </div>
+                      <div class="text-left">
+                        <h4 class="font-black text-xl mb-1">Gojek</h4>
+                        <p class="text-sm text-white/90">Pesan via GoFood</p>
+                      </div>
+                    </div>
+                    <svg
+                      class="w-6 h-6 group-hover:translate-x-2 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      ></path>
+                    </svg>
+                  </div>
+                </button>
+
+                <button
+                  onclick="orderVia('shopeefood')"
+                  class="platform-btn w-full bg-gradient-to-br from-red-600 to-red-800 text-white p-6 rounded-2xl shadow-xl relative group"
+                >
+                  <div class="relative z-10 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                      <div class="w-16 h-16 flex items-center justify-center">
+                        <img src="./assets/sfood1 (1).png" alt="" />
+                      </div>
+                      <div class="text-left">
+                        <h4 class="font-black text-xl mb-1">ShopeeFood</h4>
+                        <p class="text-sm text-white/90">
+                          Order melalui aplikasi
+                        </p>
+                      </div>
+                    </div>
+                    <svg
+                      class="w-6 h-6 group-hover:translate-x-2 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      ></path>
+                    </svg>
+                  </div>
+                </button>
+              </div>
+
+              <div
+                class="mt-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-xl"
+              >
+                <p class="text-sm text-blue-800 text-center">
+                  <span class="font-bold">💡 Info:</span> Pilih platform favorit
+                  Anda untuk melanjutkan pemesanan
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="glass fixed w-full top-0 z-40 shadow-lg">
       <div class="container mx-auto px-6 lg:px-12 py-5">
         <div class="flex justify-between items-center">
-          <!-- Logo -->
           <div class="flex items-center space-x-4 group">
-            <div
-              class="w-14 h-14 bg-gradient-to-br from-red-900 via-red-700 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl transform group-hover:rotate-12 transition-all duration-500"
-            >
-              <span class="text-white font-black text-2xl">T</span>
-            </div>
-            <span
-              class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
-              >Te'chi</span
-            >
+            <img src="./assets/Group 1191.png" alt="" class="w-28 h-auto" />
           </div>
 
-          <!-- Nav Links -->
           <div class="hidden lg:flex space-x-10">
             <a
               href="index.html"
@@ -209,16 +484,16 @@
             >
           </div>
 
-          <!-- CTA Button -->
-          <button
+          <a
+            href="menu.html"
             class="hidden lg:block bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-8 py-3 rounded-full font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
           >
             Pesan Sekarang
-          </button>
+          </a>
 
-          <!-- Mobile Menu -->
           <button
-            class="lg:hidden text-gray-800 hover:text-red-900 transition-colors duration-300"
+            id="mobile-menu-button"
+            class="lg:hidden text-gray-800 hover:text-red-900 transition-colors duration-300 z-50"
           >
             <svg
               class="w-8 h-8"
@@ -227,10 +502,19 @@
               viewBox="0 0 24 24"
             >
               <path
+                id="menu-icon-open"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
                 d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+              <path
+                id="menu-icon-close"
+                class="hidden"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
               ></path>
             </svg>
           </button>
@@ -238,11 +522,41 @@
       </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section
-      class="relative pt-32 pb-20 bg-gradient-to-br from-pink-100 via-red-50 to-orange-100 animate-gradient overflow-hidden"
+    <div
+      id="mobile-menu"
+      class="fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-40 p-6 pt-24 lg:hidden flex flex-col space-y-6"
     >
-      <!-- Decorative Elements -->
+      <a
+        href="index.html"
+        class="text-gray-800 hover:text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
+        >Home</a
+      >
+      <a
+        href="menu.html"
+        class="text-gray-800 hover:text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
+        >Menu</a
+      >
+      <a
+        href="promo.html"
+        class="text-gray-800 hover:text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
+        >Promo</a
+      >
+      <a
+        href="about.html"
+        class="text-gray-800 hover:text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
+        >About</a
+      >
+      <a
+        href="menu.html"
+        class="mt-4 bg-gradient-to-r from-red-900 to-red-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg"
+      >
+        Pesan Sekarang
+      </a>
+    </div>
+
+    <section
+      class="relative pt-28 lg:pt-32 pb-20 bg-gradient-to-br from-pink-100 via-red-50 to-orange-100 animate-gradient overflow-hidden"
+    >
       <div
         class="absolute top-20 left-10 w-72 h-72 bg-red-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 float"
       ></div>
@@ -282,8 +596,7 @@
       </div>
     </section>
 
-    <!-- Filter Section -->
-    <section class="py-12 bg-white sticky top-20 z-40 shadow-md">
+    <section class="py-12 bg-white sticky shadow-md sticky-filter">
       <div class="container mx-auto px-6 lg:px-12">
         <div class="flex flex-wrap justify-center gap-4">
           <button
@@ -294,47 +607,39 @@
           </button>
           <button
             class="filter-btn px-8 py-3 rounded-full font-bold text-lg transition-all duration-300 bg-gray-100 hover:bg-red-900 hover:text-white shadow-lg hover:shadow-xl"
-            data-filter="original"
+            data-filter="makanan"
           >
-            Original
+            Makanan
           </button>
           <button
             class="filter-btn px-8 py-3 rounded-full font-bold text-lg transition-all duration-300 bg-gray-100 hover:bg-red-900 hover:text-white shadow-lg hover:shadow-xl"
-            data-filter="spicy"
+            data-filter="minuman"
           >
-            Pedas
+            Minuman
           </button>
           <button
             class="filter-btn px-8 py-3 rounded-full font-bold text-lg transition-all duration-300 bg-gray-100 hover:bg-red-900 hover:text-white shadow-lg hover:shadow-xl"
-            data-filter="special"
+            data-filter="pempek"
           >
-            Special
-          </button>
-          <button
-            class="filter-btn px-8 py-3 rounded-full font-bold text-lg transition-all duration-300 bg-gray-100 hover:bg-red-900 hover:text-white shadow-lg hover:shadow-xl"
-            data-filter="paket"
-          >
-            Paket
+            Pempek
           </button>
         </div>
       </div>
     </section>
 
-    <!-- Menu Grid -->
     <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div class="container mx-auto px-6 lg:px-12">
         <div id="menu-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Menu Item 1 -->
           <div
             class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
-            data-category="original"
+            data-category="pempek"
           >
             <div
               class="relative overflow-hidden bg-gradient-to-br from-amber-100 to-orange-100 h-64"
             >
               <img
-                src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=500&h=400&fit=crop"
-                alt="Pempek Lenjer Original"
+                src="assets/food3.png"
+                alt=""
                 class="menu-image w-full h-full object-cover"
               />
               <div
@@ -345,11 +650,10 @@
             </div>
             <div class="p-6">
               <h3 class="text-2xl font-black text-gray-900 mb-2">
-                Pempek Lenjer Original
+                Aneka Pempek
               </h3>
               <p class="text-gray-600 mb-4">
-                Pempek kecil classic dengan rasa ikan yang kuat dan tekstur
-                kenyal
+                Pempek kecil dengan rasa ikan yang kuat dan tekstur kenyal
               </p>
               <div class="flex items-center justify-between">
                 <div>
@@ -361,6 +665,7 @@
                   </p>
                 </div>
                 <button
+                  onclick="openModal('Aneka Pempek', 'Pempek kecil dengan rasa ikan yang kuat dan tekstur kenyal', 3000, 'assets/food3.png')"
                   class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 >
                   Pesan
@@ -369,31 +674,24 @@
             </div>
           </div>
 
-          <!-- Menu Item 2 -->
           <div
             class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
-            data-category="spicy"
+            data-category="makanan"
           >
             <div
               class="relative overflow-hidden bg-gradient-to-br from-red-100 to-orange-100 h-64"
             >
               <img
-                src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500&h=400&fit=crop"
-                alt="Pempek Lenjer Pedas"
+                src="./assets/image (4).png"
+                alt="Rujak Mie"
                 class="menu-image w-full h-full object-cover"
               />
-              <div
-                class="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg pulse-slow"
-              >
-                🔥 Spicy
-              </div>
             </div>
             <div class="p-6">
-              <h3 class="text-2xl font-black text-gray-900 mb-2">
-                Pempek Lenjer Pedas
-              </h3>
+              <h3 class="text-2xl font-black text-gray-900 mb-2">Rujak Mie</h3>
               <p class="text-gray-600 mb-4">
-                Sensasi pedas yang menggigit dengan bumbu cabai pilihan
+                Mi kuning dengan bumbu rujak manis pedas khas Palembang, segar
+                dan lezat dalam satu sajian.
               </p>
               <div class="flex items-center justify-between">
                 <div>
@@ -401,10 +699,11 @@
                   <p
                     class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
                   >
-                    Rp3.500
+                    Rp15.000
                   </p>
                 </div>
                 <button
+                  onclick="openModal('Rujak Mie', 'Mi kuning dengan bumbu rujak manis pedas khas Palembang, segar dan lezat dalam satu sajian.', 15000, 'assets/image (4).png')"
                   class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 >
                   Pesan
@@ -413,26 +712,26 @@
             </div>
           </div>
 
-          <!-- Menu Item 3 -->
           <div
             class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
-            data-category="original"
+            data-category="makanan"
           >
             <div
               class="relative overflow-hidden bg-gradient-to-br from-yellow-100 to-orange-100 h-64"
             >
               <img
-                src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=400&fit=crop"
-                alt="Pempek Telur Mini"
+                src="./assets/image (1).png"
+                alt="Model Tekwan"
                 class="menu-image w-full h-full object-cover"
               />
             </div>
             <div class="p-6">
               <h3 class="text-2xl font-black text-gray-900 mb-2">
-                Pempek Telur Mini
+                Model Tekwan
               </h3>
               <p class="text-gray-600 mb-4">
-                Pempek dengan isian telur puyuh yang lezat dan bergizi
+                Tekwan khas Palembang dengan kuah kaldu udang, soun, dan sayuran
+                segar yang menggugah selera.
               </p>
               <div class="flex items-center justify-between">
                 <div>
@@ -440,10 +739,11 @@
                   <p
                     class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
                   >
-                    Rp4.000
+                    Rp15.000
                   </p>
                 </div>
                 <button
+                  onclick="openModal('Model Tekwan', 'Tekwan khas Palembang dengan kuah kaldu udang, soun, dan sayuran segar yang menggugah selera.', 15000, 'assets/image (1).png')"
                   class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 >
                   Pesan
@@ -452,17 +752,16 @@
             </div>
           </div>
 
-          <!-- Menu Item 4 -->
           <div
             class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
-            data-category="special"
+            data-category="makanan"
           >
             <div
               class="relative overflow-hidden bg-gradient-to-br from-purple-100 to-pink-100 h-64"
             >
               <img
-                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&h=400&fit=crop"
-                alt="Pempek Kapal Selam"
+                src="./assets/food1.png"
+                alt=""
                 class="menu-image w-full h-full object-cover"
               />
               <div
@@ -473,10 +772,11 @@
             </div>
             <div class="p-6">
               <h3 class="text-2xl font-black text-gray-900 mb-2">
-                Pempek Kapal Selam
+                Pindang Ikan
               </h3>
               <p class="text-gray-600 mb-4">
-                Pempek special dengan isian telur ayam utuh yang mengenyangkan
+                Ikan segar dengan kuah asam pedas khas Palembang yang gurih dan
+                menyegarkan.
               </p>
               <div class="flex items-center justify-between">
                 <div>
@@ -484,10 +784,11 @@
                   <p
                     class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
                   >
-                    Rp5.000
+                    Rp15.000
                   </p>
                 </div>
                 <button
+                  onclick="openModal('Pindang Ikan', 'Ikan segar dengan kuah asam pedas khas Palembang yang gurih dan menyegarkan.', 15000, 'assets/food1.png')"
                   class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 >
                   Pesan
@@ -496,31 +797,25 @@
             </div>
           </div>
 
-          <!-- Menu Item 5 -->
           <div
             class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
-            data-category="special"
+            data-category="makanan"
           >
             <div
               class="relative overflow-hidden bg-gradient-to-br from-green-100 to-teal-100 h-64"
             >
               <img
-                src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=400&fit=crop"
-                alt="Pempek Ikan Tenggiri"
+                src="./assets/food2.png"
+                alt=""
                 class="menu-image w-full h-full object-cover"
               />
-              <div
-                class="absolute top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg"
-              >
-                Healthy
-              </div>
             </div>
             <div class="p-6">
-              <h3 class="text-2xl font-black text-gray-900 mb-2">
-                Pempek Ikan Tenggiri
-              </h3>
+              <h3 class="text-2xl font-black text-gray-900 mb-2">Soto Ayam</h3>
               <p class="text-gray-600 mb-4">
-                Pempek premium dari ikan tenggiri pilihan berkualitas tinggi
+                Soto Ayam kami disajikan dengan kuah gurih berbumbu rempah,
+                potongan ayam empuk, dan pelengkap segar seperti telur, soun,
+                serta bawang goreng renyah
               </p>
               <div class="flex items-center justify-between">
                 <div>
@@ -528,10 +823,11 @@
                   <p
                     class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
                   >
-                    Rp6.000
+                    Rp15.000
                   </p>
                 </div>
                 <button
+                  onclick="openModal('Soto Ayam', 'Soto Ayam kami disajikan dengan kuah gurih berbumbu rempah, potongan ayam empuk, dan pelengkap segar seperti telur, soun, serta bawang goreng renyah', 15000, 'assets/food2.png')"
                   class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 >
                   Pesan
@@ -540,42 +836,35 @@
             </div>
           </div>
 
-          <!-- Menu Item 6 - Paket -->
           <div
             class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
-            data-category="paket"
+            data-category="minuman"
           >
             <div
               class="relative overflow-hidden bg-gradient-to-br from-orange-100 to-red-100 h-64"
             >
               <img
-                src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=500&h=400&fit=crop"
-                alt="Paket Hemat 1"
+                src="https://via.placeholder.com/400x400/FFCC80/7F1D1D?text=Aneka+Jus"
+                alt="Aneka Jus"
                 class="menu-image w-full h-full object-cover"
               />
-              <div
-                class="absolute top-4 right-4 bg-gradient-to-br from-yellow-500 to-orange-600 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg pulse-slow"
-              >
-                🔥 Best Deal
-              </div>
             </div>
             <div class="p-6">
-              <h3 class="text-2xl font-black text-gray-900 mb-2">
-                Paket Hemat 20
-              </h3>
+              <h3 class="text-2xl font-black text-gray-900 mb-2">Aneka Jus</h3>
               <p class="text-gray-600 mb-4">
-                20 pempek mix original + pedas dengan cuko spesial
+                Aneka Jus segar yang dibuat dari buah pilihan berkualitas.
               </p>
               <div class="flex items-center justify-between">
                 <div>
-                  <p class="text-sm text-gray-500">Hemat 20%</p>
+                  <p class="text-sm text-gray-500">Mulai dari</p>
                   <p
                     class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
                   >
-                    Rp50.000
+                    Rp10.000
                   </p>
                 </div>
                 <button
+                  onclick="openModal('Aneka Jus', 'Aneka Jus segar yang dibuat dari buah pilihan berkualitas.', 10000, 'https://via.placeholder.com/400x400/FFCC80/7F1D1D?text=Aneka+Jus')"
                   class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 >
                   Pesan
@@ -584,31 +873,24 @@
             </div>
           </div>
 
-          <!-- Menu Item 7 -->
           <div
             class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
-            data-category="spicy"
+            data-category="minuman"
           >
             <div
               class="relative overflow-hidden bg-gradient-to-br from-red-200 to-orange-200 h-64"
             >
               <img
-                src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=400&fit=crop"
-                alt="Pempek Adaan Pedas"
+                src="https://via.placeholder.com/400x400/F08080/7F1D1D?text=Cappucino"
+                alt="Cappucino"
                 class="menu-image w-full h-full object-cover"
               />
-              <div
-                class="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg"
-              >
-                Extra Hot
-              </div>
             </div>
             <div class="p-6">
-              <h3 class="text-2xl font-black text-gray-900 mb-2">
-                Pempek Adaan Pedas
-              </h3>
+              <h3 class="text-2xl font-black text-gray-900 mb-2">Cappucino</h3>
               <p class="text-gray-600 mb-4">
-                Pempek bulat dengan level kepedasan maksimal untuk pecinta pedas
+                perpaduan sempurna antara espresso berkualitas, susu hangat, dan
+                busa lembut yang creamy
               </p>
               <div class="flex items-center justify-between">
                 <div>
@@ -616,93 +898,11 @@
                   <p
                     class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
                   >
-                    Rp3.500
+                    Rp10.000
                   </p>
                 </div>
                 <button
-                  class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-                >
-                  Pesan
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Menu Item 8 -->
-          <div
-            class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
-            data-category="original"
-          >
-            <div
-              class="relative overflow-hidden bg-gradient-to-br from-amber-100 to-yellow-100 h-64"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=400&fit=crop"
-                alt="Pempek Kulit"
-                class="menu-image w-full h-full object-cover"
-              />
-            </div>
-            <div class="p-6">
-              <h3 class="text-2xl font-black text-gray-900 mb-2">
-                Pempek Kulit
-              </h3>
-              <p class="text-gray-600 mb-4">
-                Pempek dari kulit ikan dengan tekstur unik dan renyah
-              </p>
-              <div class="flex items-center justify-between">
-                <div>
-                  <p class="text-sm text-gray-500">Mulai dari</p>
-                  <p
-                    class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
-                  >
-                    Rp3.000
-                  </p>
-                </div>
-                <button
-                  class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-                >
-                  Pesan
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Menu Item 9 - Paket -->
-          <div
-            class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
-            data-category="paket"
-          >
-            <div
-              class="relative overflow-hidden bg-gradient-to-br from-pink-100 to-red-100 h-64"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&h=400&fit=crop"
-                alt="Paket Keluarga"
-                class="menu-image w-full h-full object-cover"
-              />
-              <div
-                class="absolute top-4 right-4 bg-gradient-to-br from-green-500 to-emerald-600 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg"
-              >
-                Family Pack
-              </div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-2xl font-black text-gray-900 mb-2">
-                Paket Keluarga 40
-              </h3>
-              <p class="text-gray-600 mb-4">
-                40 pempek mix dengan cuko 1 liter untuk keluarga besar
-              </p>
-              <div class="flex items-center justify-between">
-                <div>
-                  <p class="text-sm text-gray-500">Hemat 30%</p>
-                  <p
-                    class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
-                  >
-                    Rp100.000
-                  </p>
-                </div>
-                <button
+                  onclick="openModal('Cappucino', 'perpaduan sempurna antara espresso berkualitas, susu hangat, dan busa lembut yang creamy', 10000, 'https://via.placeholder.com/400x400/F08080/7F1D1D?text=Cappucino')"
                   class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 >
                   Pesan
@@ -714,11 +914,9 @@
       </div>
     </section>
 
-    <!-- CTA Section -->
     <section
       class="relative py-32 bg-gradient-to-br from-red-900 via-red-800 to-orange-800 overflow-hidden"
     >
-      <!-- Animated Background -->
       <div class="absolute inset-0 opacity-10">
         <div
           class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full filter blur-3xl float"
@@ -777,11 +975,9 @@
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 py-16">
       <div class="container mx-auto px-6 lg:px-12">
         <div class="grid md:grid-cols-3 gap-12 mb-12">
-          <!-- Brand -->
           <div>
             <div class="flex items-center space-x-4 mb-6">
               <div
@@ -797,7 +993,6 @@
             </p>
           </div>
 
-          <!-- Quick Links -->
           <div>
             <h4 class="text-white font-bold text-xl mb-6">Quick Links</h4>
             <ul class="space-y-4">
@@ -832,7 +1027,6 @@
             </ul>
           </div>
 
-          <!-- Contact -->
           <div>
             <h4 class="text-white font-bold text-xl mb-6">Hubungi Kami</h4>
             <div class="space-y-4">
@@ -864,7 +1058,7 @@
                     class="w-5 h-5 text-red-500"
                     fill="none"
                     stroke="currentColor"
-                    viewBox="0 0 24 24"
+                    viewbox="0 0 24 24"
                   >
                     <path
                       stroke-linecap="round"
@@ -912,7 +1106,7 @@
                   viewBox="0 0 24 24"
                 >
                   <path
-                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 18.162c-3.403 0-6.162-2.759-6.162-6.162s2.759-6.163 6.162-6.163 6.162 2.759 6.162 6.163c0 3.403-2.759 6.162-6.162 6.162zm0-10.162c-2.209 0-4 1.79-4 4s1.791 4 4 4 4-1.791 4-4c0-2.209-1.791-4-4-4zm6.406-1.645c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
                   ></path>
                 </svg>
               </a>
@@ -926,7 +1120,7 @@
                   viewBox="0 0 24 24"
                 >
                   <path
-                    d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+                    d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"
                   ></path>
                 </svg>
               </a>
@@ -937,7 +1131,13 @@
     </footer>
 
     <script>
-      // Custom Cursor
+      // Modal Variables
+      let currentMenuName = "";
+      let currentMenuDesc = "";
+      let currentPrice = 0;
+      let currentImage = "";
+
+      // Custom Cursor (Dibiarkan sama)
       const cursor = document.querySelector(".custom-cursor");
       const cursorDot = document.querySelector(".cursor-dot");
 
@@ -959,7 +1159,7 @@
         });
       });
 
-      // Scroll Reveal Animation
+      // Scroll Reveal Animation (Dibiarkan sama)
       const reveals = document.querySelectorAll(".reveal");
 
       const revealOnScroll = () => {
@@ -976,7 +1176,7 @@
       window.addEventListener("scroll", revealOnScroll);
       revealOnScroll();
 
-      // Filter Menu
+      // Filter Menu (Dibiarkan sama)
       const filterBtns = document.querySelectorAll(".filter-btn");
       const menuCards = document.querySelectorAll(".menu-card");
 
@@ -990,9 +1190,11 @@
 
           // Filter cards
           menuCards.forEach((card) => {
-            const category = card.getAttribute("data-category");
+            const categoryString = card
+              .getAttribute("data-category")
+              .toLowerCase();
 
-            if (filter === "all" || category === filter) {
+            if (filter === "all" || categoryString.includes(filter)) {
               card.classList.remove("hidden");
               setTimeout(() => {
                 card.classList.add("active");
@@ -1005,6 +1207,115 @@
         });
       });
 
+      // Modal Functions
+      function formatRupiah(amount) {
+        return "Rp" + amount.toLocaleString("id-ID");
+      }
+
+      function openModal(name, desc, price, image) {
+        currentMenuName = name;
+        currentMenuDesc = desc;
+        currentPrice = price;
+        currentImage = image;
+
+        document.getElementById("modalMenuName").textContent = name;
+        document.getElementById("modalMenuDesc").textContent = desc;
+        document.getElementById("modalPrice").textContent = formatRupiah(price);
+        document.getElementById("modalProductImage").src = image;
+        document.getElementById("modalProductImage").alt = name;
+
+        const modal = document.getElementById("orderModal");
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        setTimeout(() => {
+          modal.classList.add("active");
+        }, 10);
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("orderModal");
+        modal.classList.remove("active");
+        setTimeout(() => {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+          document.body.style.overflow = "auto";
+        }, 300);
+      }
+
+      function orderVia(platform) {
+        let message = `Halo! Saya ingin memesan:\n\n`;
+        message += `📦 *${currentMenuName}*\n`;
+        message += `📝 ${currentMenuDesc}\n`;
+        message += `💰 Harga: ${formatRupiah(currentPrice)}\n\n`;
+        message += `Mohon informasi ketersediaan dan cara pemesanannya. Terima kasih! 🙏`;
+
+        const encodedMessage = encodeURIComponent(message);
+
+        if (platform === "whatsapp") {
+          const phoneNumber = "6281234567890";
+          window.open(
+            `https://wa.me/${phoneNumber}?text=${encodedMessage}`,
+            "_blank"
+          );
+        } else if (platform === "gojek") {
+          alert(
+            '🚀 Mengarahkan ke GoFood...\n\nSilakan cari "Te\'chi Pempek Kecil" di aplikasi GoFood untuk melanjutkan pemesanan.'
+          );
+        } else if (platform === "shopeefood") {
+          alert(
+            '🚀 Mengarahkan ke ShopeeFood...\n\nSilakan cari "Te\'chi Pempek Kecil" di aplikasi ShopeeFood untuk melanjutkan pemesanan.'
+          );
+        }
+
+        closeModal();
+      }
+
+      // Close modal when clicking outside
+      document
+        .getElementById("orderModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeModal();
+          }
+        });
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          closeModal();
+        }
+      });
+
+      // --- Mobile Menu Functionality (DITAMBAH) ---
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const menuIconOpen = document.getElementById("menu-icon-open");
+      const menuIconClose = document.getElementById("menu-icon-close");
+
+      function toggleMobileMenu() {
+        const isOpen = mobileMenu.classList.toggle("open");
+        document.body.style.overflow = isOpen ? "hidden" : "auto";
+
+        // Toggle icons
+        menuIconOpen.classList.toggle("hidden", isOpen);
+        menuIconClose.classList.toggle("hidden", !isOpen);
+      }
+
+      if (mobileMenuButton) {
+        mobileMenuButton.addEventListener("click", toggleMobileMenu);
+      }
+
+      // Close mobile menu when a link is clicked
+      document.querySelectorAll("#mobile-menu a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (mobileMenu.classList.contains("open")) {
+            toggleMobileMenu();
+          }
+        });
+      });
+      // --- END Mobile Menu Functionality ---
+
       // Smooth scroll for anchor links
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
@@ -1015,6 +1326,10 @@
               behavior: "smooth",
               block: "start",
             });
+            // Opsional: Tutup menu mobile jika link diklik
+            if (mobileMenu && mobileMenu.classList.contains("open")) {
+              toggleMobileMenu();
+            }
           }
         });
       });

@@ -127,36 +127,248 @@
       .pulse-slow {
         animation: pulse-slow 3s ease-in-out infinite;
       }
+
+      /* Mobile Menu Styling for transition */
+      #mobile-menu {
+        transition: transform 0.3s ease-in-out;
+        transform: translateX(100%);
+      }
+      #mobile-menu.open {
+        transform: translateX(0);
+      }
     </style>
   </head>
   <body class="bg-gray-50 overflow-x-hidden">
-    <!-- Custom Cursor -->
     <div class="custom-cursor"></div>
     <div class="cursor-dot"></div>
 
-    <!-- Navbar -->
-    <!-- Navbar -->
-    <nav class="glass fixed w-full top-0 z-50 shadow-lg">
-      <div class="container mx-auto px-6 lg:px-12">
-        <!-- Tambahkan justify-center -->
-        <div class="flex justify-center items-center gap-20">
-          <!-- Logo -->
-          <div class="flex items-center justify-center w-28 h-28">
-            <img src="./assets/Group 1191.png" alt="Logo Te'chi" class="" />
+    <div
+      id="orderModal"
+      class="modal-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4"
+    >
+      <div
+        class="modal-content bg-white rounded-3xl max-w-4xl w-full shadow-2xl overflow-hidden"
+      >
+        <div
+          class="bg-gradient-to-r from-red-900 to-red-700 p-6 relative overflow-hidden"
+        >
+          <div
+            class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"
+          ></div>
+          <div
+            class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12"
+          ></div>
+          <div class="relative flex justify-between items-center">
+            <h2 class="text-3xl font-black text-white">
+              Pilih Platform Pemesanan
+            </h2>
+            <button
+              onclick="closeModal()"
+              class="text-white/80 hover:text-white transition-colors"
+            >
+              <svg
+                class="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </button>
           </div>
+        </div>
 
-          <!-- Nav Links -->
+        <div class="p-8">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <div
+                class="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl overflow-hidden shadow-lg"
+              >
+                <img
+                  id="modalProductImage"
+                  src=""
+                  alt=""
+                  class="modal-product-image w-full h-64 object-cover"
+                />
+              </div>
+
+              <div
+                class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 shadow-lg"
+              >
+                <div class="flex items-start justify-between mb-4">
+                  <div>
+                    <span
+                      class="text-sm font-semibold text-gray-500 uppercase tracking-wide"
+                      >Menu Dipilih</span
+                    >
+                    <h3
+                      id="modalMenuName"
+                      class="text-2xl font-black text-gray-900 mt-1"
+                    >
+                      Aneka Pempek
+                    </h3>
+                  </div>
+                </div>
+
+                <p
+                  id="modalMenuDesc"
+                  class="text-gray-600 mb-6 leading-relaxed"
+                >
+                  Pempek kecil dengan rasa ikan yang kuat
+                </p>
+
+                <div
+                  class="flex items-center justify-between pt-4 border-t-2 border-gray-200"
+                >
+                  <span class="text-lg font-bold text-gray-700"
+                    >Harga Satuan</span
+                  >
+                  <span
+                    id="modalPrice"
+                    class="text-4xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
+                    >Rp3.000</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col justify-center">
+              <h3 class="text-xl font-black text-gray-900 mb-6 text-center">
+                Pesan Melalui
+              </h3>
+              <div class="space-y-4">
+                <button
+                  onclick="orderVia('whatsapp')"
+                  class="platform-btn w-full bg-gradient-to-br from-red-600 to-red-800 text-white p-6 rounded-2xl shadow-xl relative group"
+                >
+                  <div class="relative z-10 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                      <div class="w-16 h-16 flex items-center justify-center">
+                        <img src="./assets/waicon.png" alt="" />
+                      </div>
+                      <div class="text-left">
+                        <h4 class="font-black text-xl mb-1">WhatsApp</h4>
+                        <p class="text-sm text-white/90">
+                          Chat langsung dengan admin
+                        </p>
+                      </div>
+                    </div>
+                    <svg
+                      class="w-6 h-6 group-hover:translate-x-2 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      ></path>
+                    </svg>
+                  </div>
+                </button>
+
+                <button
+                  onclick="orderVia('gojek')"
+                  class="platform-btn w-full bg-gradient-to-br from-red-600 to-red-800 h text-white p-6 rounded-2xl shadow-xl relative group"
+                >
+                  <div class="relative z-10 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                      <div class="w-16 h-16 flex items-center justify-center">
+                        <img src="./assets/gojekicon.png" alt="" />
+                      </div>
+                      <div class="text-left">
+                        <h4 class="font-black text-xl mb-1">Gojek</h4>
+                        <p class="text-sm text-white/90">Pesan via GoFood</p>
+                      </div>
+                    </div>
+                    <svg
+                      class="w-6 h-6 group-hover:translate-x-2 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      ></path>
+                    </svg>
+                  </div>
+                </button>
+
+                <button
+                  onclick="orderVia('shopeefood')"
+                  class="platform-btn w-full bg-gradient-to-br from-red-600 to-red-800 text-white p-6 rounded-2xl shadow-xl relative group"
+                >
+                  <div class="relative z-10 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                      <div class="w-16 h-16 flex items-center justify-center">
+                        <img src="./assets/sfood1 (1).png" alt="" />
+                      </div>
+                      <div class="text-left">
+                        <h4 class="font-black text-xl mb-1">ShopeeFood</h4>
+                        <p class="text-sm text-white/90">
+                          Order melalui aplikasi
+                        </p>
+                      </div>
+                    </div>
+                    <svg
+                      class="w-6 h-6 group-hover:translate-x-2 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      ></path>
+                    </svg>
+                  </div>
+                </button>
+              </div>
+
+              <div
+                class="mt-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-xl"
+              >
+                <p class="text-sm text-blue-800 text-center">
+                  <span class="font-bold">💡 Info:</span> Pilih platform favorit
+                  Anda untuk melanjutkan pemesanan
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="glass fixed w-full top-0 z-30 shadow-lg">
+      <div class="container mx-auto px-6 lg:px-12 py-5">
+        <div class="flex justify-between items-center">
+          <a href="#home" class="flex items-center space-x-4 group">
+            <img src="./assets/Group 1191.png" alt="" class="w-28 h-auto" />
+          </a>
+
           <div class="hidden lg:flex space-x-10">
             <a
               href="index.html"
-              class="text-red-800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
+              class="text-gray-800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
               >Home</a
             >
             <a
               href="menu.html"
               class="text-gray-800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
-              >Menu</a
-            >
+              >Menu
+            </a>
             <a
               href="promo.html"
               class="text-gray-800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
@@ -164,27 +376,85 @@
             >
             <a
               href="about.html"
-              class="text-gray-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 transform scale-110"
+              class="text-gray-800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
               >About</a
             >
           </div>
 
-          <!-- CTA Button -->
-          <button
+          <a
+            href="menu.html"
             class="hidden lg:block bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-8 py-3 rounded-full font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
           >
             Pesan Sekarang
+          </a>
+
+          <button
+            id="mobile-menu-button"
+            class="lg:hidden text-gray-800 hover:text-red-900 transition-colors duration-300 z-50"
+          >
+            <svg
+              class="w-8 h-8"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                id="menu-icon-open"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+              <path
+                id="menu-icon-close"
+                class="hidden"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
           </button>
         </div>
       </div>
     </nav>
 
-    <!-- Hero Section -->
+    <div
+      id="mobile-menu"
+      class="fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-40 p-6 pt-24 lg:hidden flex flex-col space-y-6"
+    >
+      <a
+        href="index.html"
+        class="text-gray-800 hover:text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
+        >Home</a
+      >
+      <a
+        href="menu.html"
+        class="text-gray-800 hover:text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
+        >Menu</a
+      >
+      <a
+        href="promo.html"
+        class="text-gray-800 hover:text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
+        >Promo</a
+      >
+      <a
+        href="about.html"
+        class="text-gray-800 hover:text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
+        >About</a
+      >
+      <a
+        href="menu.html"
+        class="mt-4 bg-gradient-to-r from-red-900 to-red-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg"
+      >
+        Pesan Sekarang
+      </a>
+    </div>
+
     <section
       id="home"
       class="relative min-h-screen flex items-center pt-24 pb-20 bg-gradient-to-br from-pink-100 via-red-50 to-orange-100 animate-gradient overflow-hidden"
     >
-      <!-- Decorative Elements -->
       <div
         class="absolute top-20 left-10 w-72 h-72 bg-red-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 float"
       ></div>
@@ -197,7 +467,6 @@
 
       <div class="container mx-auto px-6 lg:px-12 relative z-10 mt-28">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
-          <!-- Text Content -->
           <div class="text-center lg:text-left reveal space-y-8">
             <div class="inline-block">
               <span
@@ -254,32 +523,14 @@
 
             <div class="flex flex-col sm:flex-row gap-6 pt-4">
               <button
-                class="group relative bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-2xl hover:shadow-red-900/50 transform hover:scale-105 transition-all duration-300 overflow-hidden"
+                onclick="openModal('Aneka Pempek', 'Pempek kecil dengan rasa ikan yang kuat dan tekstur kenyal', 3000, 'assets/food3.png')"
+                class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-10 py-5 rounded-2xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
               >
-                <span
-                  class="relative z-10 flex items-center justify-center gap-3"
-                >
-                  Pesan Sekarang
-                  <svg
-                    class="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13 7l5 5m0 0l-5 5m5-5H6"
-                    ></path>
-                  </svg>
-                </span>
-                <div
-                  class="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
-                ></div>
+                Pesan Sekarang
               </button>
 
-              <button
+              <a
+                href="menu.html"
                 class="group bg-white hover:bg-gray-50 text-red-900 px-10 py-5 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-red-900"
               >
                 <span class="flex items-center justify-center gap-3">
@@ -298,14 +549,12 @@
                     ></path>
                   </svg>
                 </span>
-              </button>
+              </a>
             </div>
           </div>
 
-          <!-- Image -->
           <div class="reveal relative">
             <div class="relative z-10">
-              <!-- Main Card -->
               <div
                 class="relative transform hover:scale-105 transition-all duration-700 hover:rotate-2"
               >
@@ -323,7 +572,6 @@
                 </div>
               </div>
 
-              <!-- Floating Badge -->
               <div
                 class="absolute -top-6 -right-6 bg-gradient-to-br from-green-400 to-emerald-600 text-white px-6 py-4 rounded-2xl shadow-2xl transform rotate-12 hover:rotate-0 transition-all duration-300 z-20"
               >
@@ -331,7 +579,6 @@
                 <p class="font-bold text-sm">Halal</p>
               </div>
 
-              <!-- Stats Cards -->
               <div
                 class="absolute -bottom-6 -left-6 glass px-6 py-4 rounded-2xl shadow-xl z-20 hover:scale-110 transition-transform duration-300"
               >
@@ -344,9 +591,7 @@
       </div>
     </section>
 
-    <!-- How to Order Section -->
     <section id="order" class="relative py-32 bg-white overflow-hidden">
-      <!-- Decorative Background -->
       <div class="absolute top-0 left-0 w-full h-full opacity-5">
         <div
           class="absolute top-20 left-10 w-64 h-64 bg-red-500 rounded-full filter blur-3xl"
@@ -375,7 +620,6 @@
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <!-- Step 1 -->
           <div
             class="reveal group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-red-200 transform hover:-translate-y-4"
           >
@@ -409,7 +653,6 @@
             </p>
           </div>
 
-          <!-- Step 2 -->
           <div
             class="reveal group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-red-200 transform hover:-translate-y-4"
             style="transition-delay: 0.1s"
@@ -444,7 +687,6 @@
             </p>
           </div>
 
-          <!-- Step 3 -->
           <div
             class="reveal group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-red-200 transform hover:-translate-y-4"
             style="transition-delay: 0.2s"
@@ -479,7 +721,6 @@
             </p>
           </div>
 
-          <!-- Step 4 -->
           <div
             class="reveal group relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-red-200 transform hover:-translate-y-4"
             style="transition-delay: 0.3s"
@@ -517,12 +758,10 @@
       </div>
     </section>
 
-    <!-- Bundling Section -->
     <section
       id="menu"
       class="relative py-32 bg-gradient-to-br from-red-900 via-red-800 to-orange-800 overflow-hidden"
     >
-      <!-- Animated Background -->
       <div class="absolute inset-0 opacity-10">
         <div
           class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full filter blur-3xl float"
@@ -550,12 +789,10 @@
           <div
             class="glass rounded-3xl shadow-2xl overflow-hidden transform hover:scale-105 transition-all duration-700 reveal"
           >
-            <div class="grid lg:grid-cols-2 gap-0">
-              <!-- Image Side -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
               <div
-                class="relative p-12 bg-gradient-to-br from-amber-100 via-orange-100 to-red-100"
+                class="relative py-12 lg:py-12 bg-gradient-to-br from-amber-100 via-orange-100 to-red-100 order-first lg:order-none"
               >
-                <!-- Best Deal Badge -->
                 <div class="absolute top-8 right-8 z-20">
                   <div
                     class="bg-gradient-to-br from-green-500 to-emerald-600 text-white px-6 py-3 rounded-2xl font-black text-lg shadow-2xl transform rotate-12 hover:rotate-0 transition-all duration-300 pulse-slow"
@@ -567,10 +804,10 @@
                 <div class="relative h-full flex items-center justify-center">
                   <div class="text-center">
                     <div
-                      class="w-64 h-64 mx-auto mb-6 bg-gradient-to-br from-amber-300 to-orange-400 rounded-full flex items-center justify-center shadow-2xl float"
+                      class="w-48 h-48 lg:w-64 lg:h-64 mx-auto mb-6 bg-gradient-to-br from-amber-300 to-orange-400 rounded-full flex items-center justify-center shadow-2xl float"
                     >
                       <svg
-                        class="w-32 h-32 text-white"
+                        class="w-24 h-24 lg:w-32 lg:h-32 text-white"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -593,10 +830,11 @@
                 </div>
               </div>
 
-              <!-- Content Side -->
-              <div class="p-12 bg-white">
+              <div class="p-8 lg:p-12 bg-white">
                 <div class="h-full flex flex-col justify-center">
-                  <h3 class="text-4xl font-black text-gray-900 mb-8">
+                  <h3
+                    class="text-3xl md:text-4xl font-black text-gray-900 mb-8 text-center lg:text-left"
+                  >
                     Paket Hemat Keluarga
                   </h3>
 
@@ -625,25 +863,76 @@
                         40 buah pempek kecil
                       </p>
                     </div>
+
+                    <div
+                      class="flex items-center gap-4 p-4 bg-red-50 rounded-xl"
+                    >
+                      <div
+                        class="w-12 h-12 bg-red-900 rounded-xl flex items-center justify-center flex-shrink-0"
+                      >
+                        <svg
+                          class="w-6 h-6 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                      </div>
+                      <p class="text-xl font-bold text-gray-800">
+                        Cuko Premium 250ml
+                      </p>
+                    </div>
+
+                    <div
+                      class="flex items-center gap-4 p-4 bg-red-50 rounded-xl"
+                    >
+                      <div
+                        class="w-12 h-12 bg-red-900 rounded-xl flex items-center justify-center flex-shrink-0"
+                      >
+                        <svg
+                          class="w-6 h-6 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                      </div>
+                      <p class="text-xl font-bold text-gray-800">
+                        Kemasan Eksklusif
+                      </p>
+                    </div>
                   </div>
 
-                  <!-- Price -->
                   <div
                     class="bg-gradient-to-br from-red-900 to-orange-700 rounded-2xl p-8 mb-8 shadow-xl"
                   >
                     <div class="flex items-center justify-between">
                       <div>
                         <p class="text-white/80 text-lg mb-2">Harga Paket</p>
-                        <p class="text-5xl font-black text-white">Rp200.000</p>
-                      </div>
-                      <div class="text-right">
-                        <p class="text-white/80 text-lg mb-2">Hemat</p>
-                        <p class="text-3xl font-black text-yellow-300">30%</p>
+                        <p class="text-4xl md:text-5xl font-black text-white">
+                          Rp120.000
+                        </p>
+                        <p class="text-white/60 text-sm mt-1 line-through">
+                          Rp171.428
+                        </p>
                       </div>
                     </div>
                   </div>
 
                   <button
+                    onclick="openModal('Paket Hemat Keluarga (40 Pempek)', '40 buah pempek kecil + Cuko Premium 250ml', 120000, 'assets/food3.png')"
                     class="w-full group relative bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-8 py-6 rounded-2xl font-black text-xl shadow-2xl hover:shadow-orange-500/50 transform hover:scale-105 transition-all duration-300 overflow-hidden"
                   >
                     <span
@@ -676,11 +965,9 @@
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 py-16">
       <div class="container mx-auto px-6 lg:px-12">
         <div class="grid md:grid-cols-3 gap-12 mb-12">
-          <!-- Brand -->
           <div>
             <div class="flex items-center space-x-4 mb-6">
               <div
@@ -696,42 +983,40 @@
             </p>
           </div>
 
-          <!-- Quick Links -->
           <div>
             <h4 class="text-white font-bold text-xl mb-6">Quick Links</h4>
             <ul class="space-y-4">
               <li>
                 <a
-                  href="#home"
+                  href="index.html"
                   class="text-gray-400 hover:text-white text-lg transition-colors duration-300"
                   >Home</a
                 >
               </li>
               <li>
                 <a
-                  href="#menu"
+                  href="menu.html"
                   class="text-gray-400 hover:text-white text-lg transition-colors duration-300"
                   >Menu</a
                 >
               </li>
               <li>
                 <a
-                  href="#order"
+                  href="promo.html"
                   class="text-gray-400 hover:text-white text-lg transition-colors duration-300"
-                  >Cara Pesan</a
+                  >Promo</a
                 >
               </li>
               <li>
                 <a
-                  href="#about"
+                  href="about.html"
                   class="text-gray-400 hover:text-white text-lg transition-colors duration-300"
-                  >Tentang Kami</a
+                  >About</a
                 >
               </li>
             </ul>
           </div>
 
-          <!-- Contact -->
           <div>
             <h4 class="text-white font-bold text-xl mb-6">Hubungi Kami</h4>
             <div class="space-y-4">
@@ -811,7 +1096,7 @@
                   viewBox="0 0 24 24"
                 >
                   <path
-                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
                   ></path>
                 </svg>
               </a>
@@ -836,7 +1121,7 @@
     </footer>
 
     <script>
-      // Custom Cursor
+      // Custom Cursor (Tidak ada perubahan di sini)
       const cursor = document.querySelector(".custom-cursor");
       const cursorDot = document.querySelector(".cursor-dot");
 
@@ -858,7 +1143,7 @@
         });
       });
 
-      // Scroll Reveal Animation
+      // Scroll Reveal Animation (Tidak ada perubahan di sini)
       const reveals = document.querySelectorAll(".reveal");
 
       const revealOnScroll = () => {
@@ -875,7 +1160,114 @@
       window.addEventListener("scroll", revealOnScroll);
       revealOnScroll();
 
-      // Smooth scroll for anchor links
+      // Modal Variables, Functions, and Event Listeners (Disesuaikan untuk harga baru)
+      let currentMenuName = "";
+      let currentMenuDesc = "";
+      let currentPrice = 0;
+      let currentImage = "";
+
+      function formatRupiah(amount) {
+        return "Rp" + amount.toLocaleString("id-ID");
+      }
+
+      function openModal(name, desc, price, image) {
+        currentMenuName = name;
+        currentMenuDesc = desc;
+        currentPrice = price;
+        currentImage = image;
+
+        document.getElementById("modalMenuName").textContent = name;
+        document.getElementById("modalMenuDesc").textContent = desc;
+        document.getElementById("modalPrice").textContent = formatRupiah(price);
+        document.getElementById("modalProductImage").src = image;
+        document.getElementById("modalProductImage").alt = name;
+
+        const modal = document.getElementById("orderModal");
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        setTimeout(() => {
+          modal.classList.add("active");
+        }, 10);
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("orderModal");
+        modal.classList.remove("active");
+        setTimeout(() => {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+          document.body.style.overflow = "auto";
+        }, 300);
+      }
+
+      function orderVia(platform) {
+        let message = `Halo! Saya ingin order ${currentMenuName} seharga ${formatRupiah(
+          currentPrice
+        )}.`;
+
+        if (platform === "whatsapp") {
+          const phoneNumber = "6281273507037"; // Ganti dengan nomor WhatsApp bisnis Anda
+          window.open(
+            `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
+            "_blank"
+          );
+        } else if (platform === "gojek") {
+          alert(
+            '🚀 Mengarahkan ke GoFood...\n\nSilakan cari "Te\'chi Pempek Kecil" di aplikasi GoFood untuk melanjutkan pemesanan.'
+          );
+        } else if (platform === "shopeefood") {
+          alert(
+            '🚀 Mengarahkan ke ShopeeFood...\n\nSilakan cari "Te\'chi Pempek Kecil" di aplikasi ShopeeFood untuk melanjutkan pemesanan.'
+          );
+        }
+
+        closeModal();
+      }
+
+      // Close modal when clicking outside
+      document
+        .getElementById("orderModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeModal();
+          }
+        });
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          closeModal();
+        }
+      });
+
+      // --- Mobile Menu Functionality (NEW) ---
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const menuIconOpen = document.getElementById("menu-icon-open");
+      const menuIconClose = document.getElementById("menu-icon-close");
+
+      function toggleMobileMenu() {
+        const isOpen = mobileMenu.classList.toggle("open");
+        document.body.style.overflow = isOpen ? "hidden" : "auto";
+
+        // Toggle icons
+        menuIconOpen.classList.toggle("hidden", isOpen);
+        menuIconClose.classList.toggle("hidden", !isOpen);
+      }
+
+      mobileMenuButton.addEventListener("click", toggleMobileMenu);
+
+      // Close mobile menu when a link is clicked
+      document.querySelectorAll("#mobile-menu a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (mobileMenu.classList.contains("open")) {
+            toggleMobileMenu();
+          }
+        });
+      });
+
+      // Smooth scroll for anchor links (Modified to close mobile menu)
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -885,6 +1277,10 @@
               behavior: "smooth",
               block: "start",
             });
+            // Close mobile menu if open
+            if (mobileMenu.classList.contains("open")) {
+              toggleMobileMenu();
+            }
           }
         });
       });
