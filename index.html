@@ -10,12 +10,27 @@
       rel="stylesheet"
     />
     <style>
+      :root {
+        --red-900: #7f1d1d;
+        --red-700: #b91c1c;
+      }
       * {
         font-family: "Poppins", sans-serif;
         cursor: none;
       }
 
-      /* Custom Cursor */
+      .modal-content::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      .modal-content::-webkit-scrollbar-thumb {
+        background-color: var(--red-700);
+        border-radius: 4px;
+      }
+      .modal-content::-webkit-scrollbar-track {
+        background-color: #f3f4f6;
+      }
+
       .custom-cursor {
         width: 20px;
         height: 20px;
@@ -45,7 +60,6 @@
         border-color: #991b1b;
       }
 
-      /* Floating Animation */
       @keyframes float {
         0%,
         100% {
@@ -73,7 +87,6 @@
         animation: floatReverse 8s ease-in-out infinite;
       }
 
-      /* Gradient Animation */
       @keyframes gradient {
         0% {
           background-position: 0% 50%;
@@ -91,7 +104,6 @@
         animation: gradient 15s ease infinite;
       }
 
-      /* Reveal Animation */
       .reveal {
         opacity: 0;
         transform: translateY(30px);
@@ -103,7 +115,21 @@
         transform: translateY(0);
       }
 
-      /* Glassmorphism */
+      @keyframes slideUp {
+        from {
+          transform: translateY(30px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .menu-card.category-btn-up {
+        animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
       .glass {
         background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(10px);
@@ -111,7 +137,6 @@
         border: 1px solid rgba(255, 255, 255, 0.3);
       }
 
-      /* Pulse Effect */
       @keyframes pulse-slow {
         0%,
         100% {
@@ -128,13 +153,29 @@
         animation: pulse-slow 3s ease-in-out infinite;
       }
 
-      /* Mobile Menu Styling for transition */
       #mobile-menu {
         transition: transform 0.3s ease-in-out;
         transform: translateX(100%);
       }
       #mobile-menu.open {
         transform: translateX(0);
+      }
+
+      .filter-btn.active {
+        background-color: var(--red-900);
+        color: white;
+        transform: scale(1.05);
+        box-shadow: 0 10px 15px -3px rgba(127, 29, 29, 0.3),
+          0 4px 6px -2px rgba(127, 29, 29, 0.05);
+      }
+
+      .filter-buttons-container {
+        flex-wrap: wrap;
+        justify-content: center;
+
+        overflow-x: hidden !important;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
     </style>
   </head>
@@ -777,10 +818,17 @@
         </div>
       </div>
     </section>
-    <section id="filterSection" class="filter-section py-12 bg-white shadow-md">
+
+    <section
+      id="filterSection"
+      class="filter-section pt-12 pb-8 bg-white shadow-md"
+    >
+      <h1 class="text-center text-3xl lg:text-5xl font-black text-red-900 mb-6">
+        Menu Te'Chi
+      </h1>
       <div class="container mx-auto">
         <div
-          class="filter-buttons-container flex flex-nowrap gap-2 lg:gap-4 overflow-x-auto justify-start lg:justify-center px-6 lg:px-12"
+          class="filter-buttons-container flex gap-2 lg:gap-4 justify-center px-6 lg:px-12 mt-4"
         >
           <button
             class="filter-btn active px-4 py-2 lg:px-8 lg:py-3 rounded-full font-bold text-sm lg:text-lg transition-all duration-300 bg-gray-100 hover:bg-red-900 hover:text-white shadow-lg hover:shadow-xl flex-shrink-0"
@@ -807,13 +855,10 @@
             Pempek
           </button>
         </div>
-        <p class="md:hidden text-center text-xs text-gray-500 mt-2 px-6">
-          geser untuk melihat semua kategori
-        </p>
       </div>
     </section>
 
-    <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
+    <section class="pt-8 pb-20 bg-white">
       <div class="container mx-auto px-6 lg:px-12">
         <div id="menu-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div
@@ -1383,7 +1428,7 @@
                     class="w-5 h-5 text-red-500"
                     fill="none"
                     stroke="currentColor"
-                    viewBox="0 0 24 24"
+                    viewbox="0 0 24 24"
                   >
                     <path
                       stroke-linecap="round"
@@ -1456,7 +1501,7 @@
     </footer>
 
     <script>
-      // Modal Variables
+      // Modal Variables (Dibiarkan sama)
       let currentMenuName = "";
       let currentMenuDesc = "";
       let currentPrice = 0;
@@ -1524,34 +1569,50 @@
         lastScrollTop = scrollTop;
       });
 
-      // Filter Menu (Dibiarkan sama)
+      // Filter Menu dengan perbaikan yang diminta sebelumnya
       const filterBtns = document.querySelectorAll(".filter-btn");
       const menuCards = document.querySelectorAll(".menu-card");
 
       filterBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const filter = btn.getAttribute("data-filter");
+        btn.addEventListener("click", function () {
+          const filter = this.getAttribute("data-filter");
 
-          // Update active button
+          // Update active button (warna merah)
           filterBtns.forEach((b) => b.classList.remove("active"));
-          btn.classList.add("active");
+          this.classList.add("active");
 
-          // Filter cards
+          // Filter cards TANPA SCROLL HALAMAN
           menuCards.forEach((card) => {
             const categoryString = card
               .getAttribute("data-category")
               .toLowerCase();
 
+            // Hapus semua kelas animasi/reveal sebelum menyaring
+            card.classList.remove("active", "reveal", "category-btn-up");
+            card.style.opacity = "0";
+            card.style.transform = "translateY(30px)";
+
             if (filter === "all" || categoryString.includes(filter)) {
               card.classList.remove("hidden");
               setTimeout(() => {
-                card.classList.add("active");
-              }, 100);
+                // Tambahkan kelas animasi naik ke atas
+                card.classList.add("category-btn-up");
+              }, 10); // Jeda kecil untuk mengaktifkan animasi
             } else {
               card.classList.add("hidden");
-              card.classList.remove("active");
             }
           });
+
+          // Memastikan menu-card yang seharusnya terlihat memiliki styling yang benar setelah filter
+          const visibleCards = document.querySelectorAll(
+            ".menu-card:not(.hidden)"
+          );
+          visibleCards.forEach((card, index) => {
+            // Beri jeda berdasarkan index untuk efek stagger
+            card.style.animationDelay = `${index * 0.05}s`;
+          });
+
+          // Tidak ada kode scroll di sini, membiarkan posisi halaman tetap di tempat.
         });
       });
 
@@ -1592,11 +1653,19 @@
       }
 
       function orderVia(platform) {
-        let message = `Halo! Saya ingin order`;
+        // Gabungkan detail menu ke dalam pesan WA
+        let formattedPrice = formatRupiah(currentPrice);
+        let message = `Halo! Saya ingin order ${currentMenuName} (${formattedPrice}). Pesan ini melalui ${platform}.`;
+
+        // Encode pesan untuk URL
+        let encodedMessage = encodeURIComponent(message);
 
         if (platform === "whatsapp") {
           const phoneNumber = "6281234567890";
-          window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+          window.open(
+            `https://wa.me/${phoneNumber}?text=${encodedMessage}`,
+            "_blank"
+          );
         } else if (platform === "gojek") {
           alert(
             '🚀 Mengarahkan ke GoFood...\n\nSilakan cari "Te\'chi Pempek Kecil" di aplikasi GoFood untuk melanjutkan pemesanan.'
