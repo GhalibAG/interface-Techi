@@ -144,10 +144,10 @@
 
     <div
       id="orderModal"
-      class="modal-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4"
+      class="modal-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-30 hidden items-center justify-center p-4"
     >
       <div
-        class="modal-content bg-white rounded-3xl max-w-4xl w-full shadow-2xl overflow-hidden"
+        class="modal-content bg-white rounded-3xl max-w-4xl w-full shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
       >
         <div
           class="bg-gradient-to-r from-red-900 to-red-700 p-6 relative overflow-hidden"
@@ -159,15 +159,16 @@
             class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12"
           ></div>
           <div class="relative flex justify-between items-center">
-            <h2 class="text-3xl font-black text-white">
+            <h2 class="text-2xl lg:text-3xl font-black text-white">
               Pilih Platform Pemesanan
             </h2>
             <button
               onclick="closeModal()"
-              class="text-white/80 hover:text-white transition-colors"
+              class="text-white/80 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
+              aria-label="Close modal"
             >
               <svg
-                class="w-8 h-8"
+                class="w-6 h-6 lg:w-8 lg:h-8"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -183,8 +184,8 @@
           </div>
         </div>
 
-        <div class="p-8">
-          <div class="grid md:grid-cols-2 gap-8">
+        <div class="p-6 lg:p-8">
+          <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
             <div class="space-y-6">
               <div
                 class="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl overflow-hidden shadow-lg"
@@ -193,7 +194,7 @@
                   id="modalProductImage"
                   src=""
                   alt=""
-                  class="modal-product-image w-full h-64 object-cover"
+                  class="modal-product-image w-full h-48 lg:h-64 object-cover"
                 />
               </div>
 
@@ -208,7 +209,7 @@
                     >
                     <h3
                       id="modalMenuName"
-                      class="text-2xl font-black text-gray-900 mt-1"
+                      class="text-xl lg:text-2xl font-black text-gray-900 mt-1"
                     >
                       Aneka Pempek
                     </h3>
@@ -217,7 +218,7 @@
 
                 <p
                   id="modalMenuDesc"
-                  class="text-gray-600 mb-6 leading-relaxed"
+                  class="text-gray-600 mb-6 leading-relaxed text-sm lg:text-base"
                 >
                   Pempek kecil dengan rasa ikan yang kuat
                 </p>
@@ -225,150 +226,185 @@
                 <div
                   class="flex items-center justify-between pt-4 border-t-2 border-gray-200"
                 >
-                  <span class="text-lg font-bold text-gray-700"
+                  <span class="text-base lg:text-lg font-bold text-gray-700"
                     >Harga Satuan</span
                   >
                   <span
                     id="modalPrice"
-                    class="text-4xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
+                    class="text-3xl lg:text-4xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
                     >Rp3.000</span
                   >
                 </div>
+                <small class="mt-8"
+                  >*Harga bisa berbeda tergantung platform pemesanan yang
+                  dipilih</small
+                >
               </div>
             </div>
 
-            <div class="flex flex-col justify-center">
-              <h3 class="text-xl font-black text-gray-900 mb-6 text-center">
+            <div class="flex flex-col justify-start space-y-4">
+              <h3
+                class="text-lg lg:text-xl font-black text-gray-900 mb-2 text-center"
+              >
                 Pesan Melalui
               </h3>
-              <div class="space-y-4">
-                <button
-                  onclick="orderVia('whatsapp')"
-                  class="platform-btn w-full bg-gradient-to-br from-red-600 to-red-800 text-white p-6 rounded-2xl shadow-xl relative group"
-                >
-                  <div class="relative z-10 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                      <div class="w-16 h-16 flex items-center justify-center">
-                        <img src="./assets/waicon.png" alt="" />
-                      </div>
-                      <div class="text-left">
-                        <h4 class="font-black text-xl mb-1">WhatsApp</h4>
-                        <p class="text-sm text-white/90">
-                          Chat langsung dengan admin
-                        </p>
-                      </div>
-                    </div>
-                    <svg
-                      class="w-6 h-6 group-hover:translate-x-2 transition-transform"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      ></path>
-                    </svg>
-                  </div>
-                </button>
 
-                <button
-                  onclick="orderVia('gojek')"
-                  class="platform-btn w-full bg-gradient-to-br from-red-600 to-red-800 h text-white p-6 rounded-2xl shadow-xl relative group"
-                >
-                  <div class="relative z-10 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                      <div class="w-16 h-16 flex items-center justify-center">
-                        <img src="./assets/gojekicon.png" alt="" />
-                      </div>
-                      <div class="text-left">
-                        <h4 class="font-black text-xl mb-1">Gojek</h4>
-                        <p class="text-sm text-white/90">Pesan via GoFood</p>
-                      </div>
-                    </div>
-                    <svg
-                      class="w-6 h-6 group-hover:translate-x-2 transition-transform"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+              <button
+                onclick="orderVia('whatsapp')"
+                class="platform-btn w-full bg-gradient-to-br from-red-600 to-red-800 text-white p-4 lg:p-6 rounded-2xl shadow-xl relative group"
+              >
+                <div class="relative z-10 flex items-center justify-between">
+                  <div class="flex items-center gap-3 lg:gap-4">
+                    <div
+                      class="w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center flex-shrink-0"
                     >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      ></path>
-                    </svg>
+                      <img src="./assets/waicon.png" alt="" />
+                    </div>
+                    <div class="text-left">
+                      <h4 class="font-black text-lg lg:text-xl mb-1">
+                        WhatsApp
+                      </h4>
+                      <p class="text-xs lg:text-sm text-white/90">
+                        Chat langsung dengan admin
+                      </p>
+                    </div>
                   </div>
-                </button>
+                  <svg
+                    class="w-5 h-5 lg:w-6 lg:h-6 group-hover:translate-x-2 transition-transform flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </div>
+              </button>
 
-                <button
-                  onclick="orderVia('shopeefood')"
-                  class="platform-btn w-full bg-gradient-to-br from-red-600 to-red-800 text-white p-6 rounded-2xl shadow-xl relative group"
-                >
-                  <div class="relative z-10 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                      <div class="w-16 h-16 flex items-center justify-center">
-                        <img src="./assets/sfood1 (1).png" alt="" />
-                      </div>
-                      <div class="text-left">
-                        <h4 class="font-black text-xl mb-1">ShopeeFood</h4>
-                        <p class="text-sm text-white/90">
-                          Order melalui aplikasi
-                        </p>
-                      </div>
-                    </div>
-                    <svg
-                      class="w-6 h-6 group-hover:translate-x-2 transition-transform"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+              <button
+                onclick="orderVia('gojek')"
+                class="platform-btn w-full bg-gradient-to-br from-red-600 to-red-800 text-white p-4 lg:p-6 rounded-2xl shadow-xl relative group"
+              >
+                <div class="relative z-10 flex items-center justify-between">
+                  <div class="flex items-center gap-3 lg:gap-4">
+                    <div
+                      class="w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center flex-shrink-0"
                     >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      ></path>
-                    </svg>
+                      <img src="./assets/gojekicon.png" alt="" />
+                    </div>
+                    <div class="text-left">
+                      <h4 class="font-black text-lg lg:text-xl mb-1">Gojek</h4>
+                      <p class="text-xs lg:text-sm text-white/90">
+                        Pesan via GoFood
+                      </p>
+                    </div>
                   </div>
-                </button>
-              </div>
+                  <svg
+                    class="w-5 h-5 lg:w-6 lg:h-6 group-hover:translate-x-2 transition-transform flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </div>
+              </button>
+
+              <button
+                onclick="orderVia('shopeefood')"
+                class="platform-btn w-full bg-gradient-to-br from-red-600 to-red-800 text-white p-4 lg:p-6 rounded-2xl shadow-xl relative group"
+              >
+                <div class="relative z-10 flex items-center justify-between">
+                  <div class="flex items-center gap-3 lg:gap-4">
+                    <div
+                      class="w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center flex-shrink-0"
+                    >
+                      <img src="./assets/sfood1 (1).png" alt="" />
+                    </div>
+                    <div class="text-left">
+                      <h4 class="font-black text-lg lg:text-xl mb-1">
+                        ShopeeFood
+                      </h4>
+                      <p class="text-xs lg:text-sm text-white/90">
+                        Order melalui aplikasi
+                      </p>
+                    </div>
+                  </div>
+                  <svg
+                    class="w-5 h-5 lg:w-6 lg:h-6 group-hover:translate-x-2 transition-transform flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </div>
+              </button>
 
               <div
                 class="mt-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-xl"
               >
-                <p class="text-sm text-blue-800 text-center">
-                  <span class="font-bold">💡 Info:</span> Pilih platform favorit
-                  Anda untuk melanjutkan pemesanan
+                <p class="text-xs lg:text-sm text-blue-800 text-center">
+                  <span class="font-bold">💡 Info:</span> Pemesanan via WA bisa
+                  ambil sendiri dan juga diantar
                 </p>
               </div>
             </div>
           </div>
         </div>
+        <div class="mt-6 text-center">
+          <h4 class="text-base font-bold text-gray-700 mb-3">📍 Lokasi Kami</h4>
+          <div class="rounded-xl overflow-hidden shadow-2xl h-96">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.608115267249!2d104.70007847478223!3d-2.928436097047874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e3b7487d5142d63%3A0x6bd5c4e239dd468f!2sPempek%20Te'chi!5e0!3m2!1sid!2sid!4v1762834703879!5m2!1sid!2sid"
+              width="100%"
+              height="100%"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              class="filter grayscale hover:grayscale-0 transition-all duration-500"
+            ></iframe>
+          </div>
+          <p class="text-xs text-gray-500 mt-2">
+            Anda bisa datang langsung ke lokasi untuk ambil pesanan (pick-up)
+          </p>
+        </div>
       </div>
     </div>
 
-    <nav class="glass fixed w-full top-0 z-30 shadow-lg">
+    <nav class="glass fixed w-full top-0 z-20 shadow-lg">
       <div class="container mx-auto px-6 lg:px-12 py-5">
         <div class="flex justify-between items-center">
-          <a href="#home" class="flex items-center space-x-4 group">
+          <div class="flex items-center space-x-4 group">
             <img src="./assets/Group 1191.png" alt="" class="w-28 h-auto" />
-          </a>
+          </div>
 
           <div class="hidden lg:flex space-x-10">
             <a
               href="index.html"
-              class="text-gray-800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
+              class="text-red-900 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
               >Home</a
             >
             <a
-              href="menu.html"
+              href="#filterSection"
               class="text-gray-800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
-              >Menu
-            </a>
+              >Menu</a
+            >
             <a
               href="promo.html"
               class="text-gray-800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
@@ -382,7 +418,7 @@
           </div>
 
           <a
-            href="menu.html"
+            href="#filterSection"
             class="hidden lg:block bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-8 py-3 rounded-full font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
           >
             Pesan Sekarang
@@ -390,30 +426,11 @@
 
           <button
             id="mobile-menu-button"
-            class="lg:hidden text-gray-800 hover:text-red-900 transition-colors duration-300 z-50"
+            class="lg:hidden text-gray-800 hover:text-red-900 transition-colors duration-300 z-40 flex flex-col gap-1.5 w-8 h-8 items-center justify-center"
           >
-            <svg
-              class="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                id="menu-icon-open"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
-              <path
-                id="menu-icon-close"
-                class="hidden"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
+            <span class="hamburger-line w-6 h-0.5 bg-gray-800 block"></span>
+            <span class="hamburger-line w-6 h-0.5 bg-gray-800 block"></span>
+            <span class="hamburger-line w-6 h-0.5 bg-gray-800 block"></span>
           </button>
         </div>
       </div>
@@ -421,15 +438,18 @@
 
     <div
       id="mobile-menu"
-      class="fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-40 p-6 pt-24 lg:hidden flex flex-col space-y-6"
+      class="fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-10 p-6 pt-24 lg:hidden flex flex-col space-y-6"
     >
+      <p></p>
+      <p></p>
+
       <a
         href="index.html"
         class="text-gray-800 hover:text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
         >Home</a
       >
       <a
-        href="menu.html"
+        href="#filterSection"
         class="text-gray-800 hover:text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
         >Menu</a
       >
@@ -444,7 +464,7 @@
         >About</a
       >
       <a
-        href="menu.html"
+        href="#filterSection"
         class="mt-4 bg-gradient-to-r from-red-900 to-red-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg"
       >
         Pesan Sekarang
@@ -453,7 +473,7 @@
 
     <section
       id="home"
-      class="relative min-h-screen flex items-center pt-24 pb-20 bg-gradient-to-br from-pink-100 via-red-50 to-orange-100 animate-gradient overflow-hidden"
+      class="relative min-h-screen flex items-center pt-16 pb-20 bg-gradient-to-br from-pink-100 via-red-50 to-orange-100 animate-gradient overflow-hidden"
     >
       <div
         class="absolute top-20 left-10 w-72 h-72 bg-red-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 float"
@@ -465,8 +485,8 @@
         class="absolute bottom-20 left-1/3 w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 float"
       ></div>
 
-      <div class="container mx-auto px-6 lg:px-12 relative z-10 mt-28">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <div class="container mx-auto px-6 lg:px-12 relative z-8 mt-28">
+        <div class="grid lg:grid-cols-2 gap-16 items-start">
           <div class="text-center lg:text-left reveal space-y-8">
             <div class="inline-block">
               <span
@@ -530,7 +550,7 @@
               </button>
 
               <a
-                href="menu.html"
+                href="#filterSection"
                 class="group bg-white hover:bg-gray-50 text-red-900 px-10 py-5 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-red-900"
               >
                 <span class="flex items-center justify-center gap-3">
@@ -601,7 +621,7 @@
         ></div>
       </div>
 
-      <div class="container mx-auto px-6 lg:px-12 relative z-10">
+      <div class="container mx-auto px-6 lg:px-12 relative z-8">
         <div class="text-center mb-20 reveal">
           <span
             class="inline-block bg-red-100 text-red-900 px-6 py-3 rounded-full text-sm font-bold mb-6"
@@ -757,6 +777,321 @@
         </div>
       </div>
     </section>
+    <section id="filterSection" class="filter-section py-12 bg-white shadow-md">
+      <div class="container mx-auto">
+        <div
+          class="filter-buttons-container flex flex-nowrap gap-2 lg:gap-4 overflow-x-auto justify-start lg:justify-center px-6 lg:px-12"
+        >
+          <button
+            class="filter-btn active px-4 py-2 lg:px-8 lg:py-3 rounded-full font-bold text-sm lg:text-lg transition-all duration-300 bg-gray-100 hover:bg-red-900 hover:text-white shadow-lg hover:shadow-xl flex-shrink-0"
+            data-filter="all"
+          >
+            Semua Menu
+          </button>
+          <button
+            class="filter-btn px-4 py-2 lg:px-8 lg:py-3 rounded-full font-bold text-sm lg:text-lg transition-all duration-300 bg-gray-100 hover:bg-red-900 hover:text-white shadow-lg hover:shadow-xl flex-shrink-0"
+            data-filter="makanan"
+          >
+            Makanan
+          </button>
+          <button
+            class="filter-btn px-4 py-2 lg:px-8 lg:py-3 rounded-full font-bold text-sm lg:text-lg transition-all duration-300 bg-gray-100 hover:bg-red-900 hover:text-white shadow-lg hover:shadow-xl flex-shrink-0"
+            data-filter="minuman"
+          >
+            Minuman
+          </button>
+          <button
+            class="filter-btn px-4 py-2 lg:px-8 lg:py-3 rounded-full font-bold text-sm lg:text-lg transition-all duration-300 bg-gray-100 hover:bg-red-900 hover:text-white shadow-lg hover:shadow-xl flex-shrink-0"
+            data-filter="pempek"
+          >
+            Pempek
+          </button>
+        </div>
+        <p class="md:hidden text-center text-xs text-gray-500 mt-2 px-6">
+          geser untuk melihat semua kategori
+        </p>
+      </div>
+    </section>
+
+    <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <div class="container mx-auto px-6 lg:px-12">
+        <div id="menu-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
+            data-category="pempek"
+          >
+            <div
+              class="relative overflow-hidden bg-gradient-to-br from-amber-100 to-orange-100 h-48"
+            >
+              <img
+                src="assets/food3.png"
+                alt=""
+                class="menu-image w-full h-full object-cover"
+              />
+              <div
+                class="absolute top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg"
+              >
+                Popular
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-black text-gray-900 mb-2">
+                Aneka Pempek
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Pempek kecil dengan rasa ikan yang kuat dan tekstur kenyal
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <p
+                    class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
+                  >
+                    Rp3.000
+                  </p>
+                </div>
+                <button
+                  onclick="openModal('Aneka Pempek', 'Pempek kecil dengan rasa ikan yang kuat dan tekstur kenyal', 3000, 'assets/food3.png')"
+                  class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                >
+                  Pesan
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
+            data-category="makanan"
+          >
+            <div
+              class="relative overflow-hidden bg-gradient-to-br from-red-100 to-orange-100 h-48"
+            >
+              <img
+                src="./assets/image (4).png"
+                alt="Rujak Mie"
+                class="menu-image w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-black text-gray-900 mb-2">Rujak Mie</h3>
+              <p class="text-gray-600 mb-4">
+                Mi kuning dengan bumbu rujak manis pedas khas Palembang, segar
+                dan lezat dalam satu sajian.
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <p
+                    class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
+                  >
+                    Rp15.000
+                  </p>
+                </div>
+                <button
+                  onclick="openModal('Rujak Mie', 'Mi kuning dengan bumbu rujak manis pedas khas Palembang, segar dan lezat dalam satu sajian.', 15000, 'assets/image (4).png')"
+                  class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                >
+                  Pesan
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
+            data-category="makanan"
+          >
+            <div
+              class="relative overflow-hidden bg-gradient-to-br from-yellow-100 to-orange-100 h-48"
+            >
+              <img
+                src="./assets/image (1).png"
+                alt="Model Tekwan"
+                class="menu-image w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-black text-gray-900 mb-2">
+                Model Tekwan
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Tekwan khas Palembang dengan kuah kaldu udang, soun, dan sayuran
+                segar yang menggugah selera.
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <p
+                    class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
+                  >
+                    Rp15.000
+                  </p>
+                </div>
+                <button
+                  onclick="openModal('Model Tekwan', 'Tekwan khas Palembang dengan kuah kaldu udang, soun, dan sayuran segar yang menggugah selera.', 15000, 'assets/image (1).png')"
+                  class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                >
+                  Pesan
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
+            data-category="makanan"
+          >
+            <div
+              class="relative overflow-hidden bg-gradient-to-br from-purple-100 to-pink-100 h-48"
+            >
+              <img
+                src="./assets/food1.png"
+                alt=""
+                class="menu-image w-full h-full object-cover"
+              />
+              <div
+                class="absolute top-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg"
+              >
+                Premium
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-black text-gray-900 mb-2">
+                Pindang Ikan
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Ikan segar dengan kuah asam pedas khas Palembang yang gurih dan
+                menyegarkan.
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <p
+                    class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
+                  >
+                    Rp15.000
+                  </p>
+                </div>
+                <button
+                  onclick="openModal('Pindang Ikan', 'Ikan segar dengan kuah asam pedas khas Palembang yang gurih dan menyegarkan.', 15000, 'assets/food1.png')"
+                  class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                >
+                  Pesan
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
+            data-category="makanan"
+          >
+            <div
+              class="relative overflow-hidden bg-gradient-to-br from-green-100 to-teal-100 h-48"
+            >
+              <img
+                src="./assets/food2.png"
+                alt=""
+                class="menu-image w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-black text-gray-900 mb-2">Soto Ayam</h3>
+              <p class="text-gray-600 mb-4">
+                Soto Ayam kami disajikan dengan kuah gurih berbumbu rempah,
+                potongan ayam empuk, dan pelengkap segar seperti telur, soun,
+                serta bawang goreng renyah
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <p
+                    class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
+                  >
+                    Rp15.000
+                  </p>
+                </div>
+                <button
+                  onclick="openModal('Soto Ayam', 'Soto Ayam kami disajikan dengan kuah gurih berbumbu rempah, potongan ayam empuk, dan pelengkap segar seperti telur, soun, serta bawang goreng renyah', 15000, 'assets/food2.png')"
+                  class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                >
+                  Pesan
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
+            data-category="minuman"
+          >
+            <div
+              class="relative overflow-hidden bg-gradient-to-br from-orange-100 to-red-100 h-48"
+            >
+              <img
+                src="https://via.placeholder.com/400x400/FFCC80/7F1D1D?text=Aneka+Jus"
+                alt="Aneka Jus"
+                class="menu-image w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-black text-gray-900 mb-2">Aneka Jus</h3>
+              <p class="text-gray-600 mb-4">
+                Aneka Jus segar yang dibuat dari buah pilihan berkualitas.
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <p
+                    class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
+                  >
+                    Rp10.000
+                  </p>
+                </div>
+                <button
+                  onclick="openModal('Aneka Jus', 'Aneka Jus segar yang dibuat dari buah pilihan berkualitas.', 10000, 'https://via.placeholder.com/400x400/FFCC80/7F1D1D?text=Aneka+Jus')"
+                  class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                >
+                  Pesan
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="menu-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
+            data-category="minuman"
+          >
+            <div
+              class="relative overflow-hidden bg-gradient-to-br from-red-200 to-orange-200 h-48"
+            >
+              <img
+                src="https://via.placeholder.com/400x400/F08080/7F1D1D?text=Cappucino"
+                alt="Cappucino"
+                class="menu-image w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-black text-gray-900 mb-2">Cappucino</h3>
+              <p class="text-gray-600 mb-4">
+                perpaduan sempurna antara espresso berkualitas, susu hangat, dan
+                busa lembut yang creamy
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <p
+                    class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
+                  >
+                    Rp10.000
+                  </p>
+                </div>
+                <button
+                  onclick="openModal('Cappucino', 'perpaduan sempurna antara espresso berkualitas, susu hangat, dan busa lembut yang creamy', 10000, 'https://via.placeholder.com/400x400/F08080/7F1D1D?text=Cappucino')"
+                  class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                >
+                  Pesan
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section
       id="menu"
@@ -771,7 +1106,7 @@
         ></div>
       </div>
 
-      <div class="container mx-auto px-6 lg:px-12 relative z-10">
+      <div class="container mx-auto px-6 lg:px-12 relative z-8">
         <div class="text-center mb-20 reveal">
           <span
             class="inline-block bg-white/20 text-white px-6 py-3 rounded-full text-sm font-bold mb-6"
@@ -995,7 +1330,7 @@
               </li>
               <li>
                 <a
-                  href="menu.html"
+                  href="#filterSection"
                   class="text-gray-400 hover:text-white text-lg transition-colors duration-300"
                   >Menu</a
                 >
@@ -1121,7 +1456,13 @@
     </footer>
 
     <script>
-      // Custom Cursor (Tidak ada perubahan di sini)
+      // Modal Variables
+      let currentMenuName = "";
+      let currentMenuDesc = "";
+      let currentPrice = 0;
+      let currentImage = "";
+
+      // Custom Cursor (Dibiarkan sama)
       const cursor = document.querySelector(".custom-cursor");
       const cursorDot = document.querySelector(".cursor-dot");
 
@@ -1132,8 +1473,8 @@
         cursorDot.style.top = e.clientY + "px";
       });
 
-      // Hover effect on interactive elements
-      const hoverElements = document.querySelectorAll("a, button");
+      // Hover effect on interactive elements (Dibiarkan sama)
+      const hoverElements = document.querySelectorAll("a, button, img");
       hoverElements.forEach((el) => {
         el.addEventListener("mouseenter", () => {
           cursor.classList.add("hover");
@@ -1143,7 +1484,7 @@
         });
       });
 
-      // Scroll Reveal Animation (Tidak ada perubahan di sini)
+      // Scroll Reveal Animation (Dibiarkan sama)
       const reveals = document.querySelectorAll(".reveal");
 
       const revealOnScroll = () => {
@@ -1160,12 +1501,61 @@
       window.addEventListener("scroll", revealOnScroll);
       revealOnScroll();
 
-      // Modal Variables, Functions, and Event Listeners (Disesuaikan untuk harga baru)
-      let currentMenuName = "";
-      let currentMenuDesc = "";
-      let currentPrice = 0;
-      let currentImage = "";
+      // Hide Filter on Scroll (Dibiarkan sama)
+      const filterSection = document.getElementById("filterSection");
+      let lastScrollTop = 0;
+      let filterSectionOffsetTop = 0;
 
+      window.addEventListener("load", () => {
+        filterSectionOffsetTop = filterSection.offsetTop;
+      });
+
+      window.addEventListener("scroll", () => {
+        const scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+
+        // Sembunyikan filter jika sudah scroll melewati filter section
+        if (scrollTop > filterSectionOffsetTop + 100) {
+          filterSection.classList.add("hide-filter");
+        } else {
+          filterSection.classList.remove("hide-filter");
+        }
+
+        lastScrollTop = scrollTop;
+      });
+
+      // Filter Menu (Dibiarkan sama)
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const menuCards = document.querySelectorAll(".menu-card");
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const filter = btn.getAttribute("data-filter");
+
+          // Update active button
+          filterBtns.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+
+          // Filter cards
+          menuCards.forEach((card) => {
+            const categoryString = card
+              .getAttribute("data-category")
+              .toLowerCase();
+
+            if (filter === "all" || categoryString.includes(filter)) {
+              card.classList.remove("hidden");
+              setTimeout(() => {
+                card.classList.add("active");
+              }, 100);
+            } else {
+              card.classList.add("hidden");
+              card.classList.remove("active");
+            }
+          });
+        });
+      });
+
+      // Modal Functions (Dibiarkan sama)
       function formatRupiah(amount) {
         return "Rp" + amount.toLocaleString("id-ID");
       }
@@ -1202,16 +1592,11 @@
       }
 
       function orderVia(platform) {
-        let message = `Halo! Saya ingin order ${currentMenuName} seharga ${formatRupiah(
-          currentPrice
-        )}.`;
+        let message = `Halo! Saya ingin order`;
 
         if (platform === "whatsapp") {
-          const phoneNumber = "6281273507037"; // Ganti dengan nomor WhatsApp bisnis Anda
-          window.open(
-            `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
-            "_blank"
-          );
+          const phoneNumber = "6281234567890";
+          window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
         } else if (platform === "gojek") {
           alert(
             '🚀 Mengarahkan ke GoFood...\n\nSilakan cari "Te\'chi Pempek Kecil" di aplikasi GoFood untuk melanjutkan pemesanan.'
@@ -1225,7 +1610,7 @@
         closeModal();
       }
 
-      // Close modal when clicking outside
+      // Close modal when clicking outside (Dibiarkan sama)
       document
         .getElementById("orderModal")
         .addEventListener("click", function (e) {
@@ -1234,31 +1619,28 @@
           }
         });
 
-      // Close modal with Escape key
+      // Close modal with Escape key (Dibiarkan sama)
       document.addEventListener("keydown", function (e) {
         if (e.key === "Escape") {
           closeModal();
         }
       });
 
-      // --- Mobile Menu Functionality (NEW) ---
+      // Mobile Menu Functionality (Dibiarkan sama)
       const mobileMenuButton = document.getElementById("mobile-menu-button");
       const mobileMenu = document.getElementById("mobile-menu");
-      const menuIconOpen = document.getElementById("menu-icon-open");
-      const menuIconClose = document.getElementById("menu-icon-close");
 
       function toggleMobileMenu() {
         const isOpen = mobileMenu.classList.toggle("open");
+        mobileMenuButton.classList.toggle("open");
         document.body.style.overflow = isOpen ? "hidden" : "auto";
-
-        // Toggle icons
-        menuIconOpen.classList.toggle("hidden", isOpen);
-        menuIconClose.classList.toggle("hidden", !isOpen);
       }
 
-      mobileMenuButton.addEventListener("click", toggleMobileMenu);
+      if (mobileMenuButton) {
+        mobileMenuButton.addEventListener("click", toggleMobileMenu);
+      }
 
-      // Close mobile menu when a link is clicked
+      // Close mobile menu when a link is clicked (Dibiarkan sama)
       document.querySelectorAll("#mobile-menu a").forEach((link) => {
         link.addEventListener("click", () => {
           if (mobileMenu.classList.contains("open")) {
@@ -1267,7 +1649,7 @@
         });
       });
 
-      // Smooth scroll for anchor links (Modified to close mobile menu)
+      // Smooth scroll for anchor links (Dibiarkan sama)
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -1277,8 +1659,7 @@
               behavior: "smooth",
               block: "start",
             });
-            // Close mobile menu if open
-            if (mobileMenu.classList.contains("open")) {
+            if (mobileMenu && mobileMenu.classList.contains("open")) {
               toggleMobileMenu();
             }
           }

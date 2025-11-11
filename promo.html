@@ -231,7 +231,7 @@
     <div class="custom-cursor"></div>
     <div class="cursor-dot"></div>
 
-    <nav class="glass fixed w-full top-0 z-40 shadow-lg">
+    <nav class="glass fixed w-full top-0 z-20 shadow-lg">
       <div class="container mx-auto px-6 lg:px-12 py-5">
         <div class="flex justify-between items-center">
           <div class="flex items-center space-x-4 group">
@@ -245,13 +245,13 @@
               >Home</a
             >
             <a
-              href="menu.html"
-              class="text-gray-800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
+              href="index.html"
+              class="text-gray 800 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
               >Menu</a
             >
             <a
               href="promo.html"
-              class="text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-red-900 transform scale-110"
+              class="text-red-900 hover:text-red-900 font-semibold text-lg transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-red-900 hover:after:w-full after:transition-all after:duration-300 transform hover:scale-110"
               >Promo</a
             >
             <a
@@ -262,7 +262,7 @@
           </div>
 
           <a
-            href="menu.html"
+            href="index.html"
             class="hidden lg:block bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-8 py-3 rounded-full font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
           >
             Pesan Sekarang
@@ -270,30 +270,11 @@
 
           <button
             id="mobile-menu-button"
-            class="lg:hidden text-gray-800 hover:text-red-900 transition-colors duration-300 z-50"
+            class="lg:hidden text-gray-800 hover:text-red-900 transition-colors duration-300 z-40 flex flex-col gap-1.5 w-8 h-8 items-center justify-center"
           >
-            <svg
-              class="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                id="menu-icon-open"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
-              <path
-                id="menu-icon-close"
-                class="hidden"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
+            <span class="hamburger-line w-6 h-0.5 bg-gray-800 block"></span>
+            <span class="hamburger-line w-6 h-0.5 bg-gray-800 block"></span>
+            <span class="hamburger-line w-6 h-0.5 bg-gray-800 block"></span>
           </button>
         </div>
       </div>
@@ -301,21 +282,24 @@
 
     <div
       id="mobile-menu"
-      class="fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-40 p-6 pt-24 lg:hidden flex flex-col space-y-6"
+      class="fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-10 p-6 pt-24 lg:hidden flex flex-col space-y-6"
     >
+      <p></p>
+      <p></p>
+
       <a
         href="index.html"
         class="text-gray-800 hover:text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
         >Home</a
       >
       <a
-        href="menu.html"
+        href="index.html"
         class="text-gray-800 hover:text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
         >Menu</a
       >
       <a
         href="promo.html"
-        class="text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
+        class="text-gray-800 hover:text-red-900 font-semibold text-lg border-b border-gray-100 pb-2"
         >Promo</a
       >
       <a
@@ -324,7 +308,7 @@
         >About</a
       >
       <a
-        href="menu.html"
+        href="index.html"
         class="mt-4 bg-gradient-to-r from-red-900 to-red-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg"
       >
         Pesan Sekarang
@@ -332,13 +316,13 @@
     </div>
 
     <section
-      class="py-20 bg-gradient-to-b from-yellow-50 to-white relative overflow-hidden pt-32"
+      class="py-20 bg-gradient-to-b from-yellow-50 to-white relative overflow-hidden pt-32 mt-8"
     >
       <div
         class="absolute top-20 right-10 w-64 h-64 bg-orange-200 rounded-full filter blur-3xl opacity-30 float"
       ></div>
 
-      <div class="container mx-auto px-6 lg:px-12 relative z-10">
+      <div class="container mx-auto px-6 lg:px-12 relative z-8">
         <div class="text-center mb-16 reveal">
           <div class="inline-block mb-4">
             <span
@@ -798,7 +782,7 @@
               </li>
               <li>
                 <a
-                  href="menu.html"
+                  href="index.html"
                   class="text-gray-400 hover:text-white text-lg transition-colors duration-300"
                   >Menu</a
                 >
@@ -924,7 +908,7 @@
     </footer>
 
     <script>
-      // Custom Cursor
+      // Custom Cursor (Dibiarkan sama)
       const cursor = document.querySelector(".custom-cursor");
       const cursorDot = document.querySelector(".cursor-dot");
 
@@ -935,7 +919,7 @@
         cursorDot.style.top = e.clientY + "px";
       });
 
-      // Hover effect on interactive elements
+      // Hover effect on interactive elements (Dibiarkan sama)
       const hoverElements = document.querySelectorAll("a, button, img");
       hoverElements.forEach((el) => {
         el.addEventListener("mouseenter", () => {
@@ -946,7 +930,7 @@
         });
       });
 
-      // Scroll Reveal Animation
+      // Scroll Reveal Animation (Dibiarkan sama)
       const reveals = document.querySelectorAll(".reveal");
 
       const revealOnScroll = () => {
@@ -963,35 +947,21 @@
       window.addEventListener("scroll", revealOnScroll);
       revealOnScroll();
 
-      // --- Mobile Menu Functionality (DITAMBAH) ---
+      // Mobile Menu Functionality (Dibiarkan sama)
       const mobileMenuButton = document.getElementById("mobile-menu-button");
       const mobileMenu = document.getElementById("mobile-menu");
-      const menuIconOpen = document.getElementById("menu-icon-open");
-      const menuIconClose = document.getElementById("menu-icon-close");
 
       function toggleMobileMenu() {
         const isOpen = mobileMenu.classList.toggle("open");
+        mobileMenuButton.classList.toggle("open");
         document.body.style.overflow = isOpen ? "hidden" : "auto";
-
-        // Toggle icons: Sembunyikan ikon buka saat menu terbuka, dan sebaliknya
-        const openIcon = mobileMenuButton.querySelector("#menu-icon-open");
-        const closeIcon = mobileMenuButton.querySelector("#menu-icon-close");
-
-        if (isOpen) {
-          if (openIcon) openIcon.classList.add("hidden");
-          if (closeIcon) closeIcon.classList.remove("hidden");
-        } else {
-          if (openIcon) openIcon.classList.remove("hidden");
-          if (closeIcon) closeIcon.classList.add("hidden");
-        }
       }
 
-      // Pastikan button klik memanggil fungsi toggle
       if (mobileMenuButton) {
         mobileMenuButton.addEventListener("click", toggleMobileMenu);
       }
 
-      // Close mobile menu when a link is clicked
+      // Close mobile menu when a link is clicked (Dibiarkan sama)
       document.querySelectorAll("#mobile-menu a").forEach((link) => {
         link.addEventListener("click", () => {
           if (mobileMenu.classList.contains("open")) {
@@ -1000,7 +970,7 @@
         });
       });
 
-      // Smooth scroll for anchor links
+      // Smooth scroll for anchor links (Dibiarkan sama)
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -1010,7 +980,6 @@
               behavior: "smooth",
               block: "start",
             });
-            // Opsional: Tutup menu mobile jika link diklik (asumsi ini adalah halaman 1 page scroll)
             if (mobileMenu && mobileMenu.classList.contains("open")) {
               toggleMobileMenu();
             }
