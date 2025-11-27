@@ -14,13 +14,11 @@
       :root {
         --red-900: #7f1d1d;
         --red-700: #b91c1c;
-        /* PERBAIKAN 1: Percepat durasi (lebih kecil lebih cepat) */
         --scroll-duration: 20s;
       }
 
       * {
         font-family: "Poppins", sans-serif;
-        cursor: none;
       }
 
       .custom-cursor {
@@ -135,6 +133,19 @@
       }
       #mobile-menu.open {
         transform: translateX(0);
+      }
+
+      @media (min-width: 1024px) {
+        * {
+          cursor: none;
+        }
+      }
+
+      @media (max-width: 1023px) {
+        .custom-cursor,
+        .cursor-dot {
+          display: none !important;
+        }
       }
     </style>
   </head>
@@ -305,7 +316,11 @@
             <div
               class="aspect-square w-full bg-gradient-to-br from-red-100 to-orange-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
             >
-              <img src="" alt="" class="w-full h-full object-cover" />
+              <img
+                src="./assets/testi1.jpeg"
+                alt=""
+                class="w-full h-full object-cover"
+              />
             </div>
 
             <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
@@ -322,7 +337,7 @@
             <div
               class="aspect-square w-full bg-gradient-to-br from-orange-100 to-yellow-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
             >
-              <img src="" alt="" />
+              <img src="./assets/testi2.jpeg" alt="" />
             </div>
 
             <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
@@ -339,7 +354,7 @@
             <div
               class="aspect-square w-full bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
             >
-              <img src="" alt="" />
+              <img src="./assets/testi3.jpeg" alt="" />
             </div>
 
             <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
@@ -356,7 +371,7 @@
             <div
               class="aspect-square w-full bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
             >
-              <img src="" alt="" />
+              <img src="./assets/testi4.jpeg" alt="" />
             </div>
 
             <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
@@ -371,26 +386,9 @@
 
           <div class="autoscroll-item bg-white rounded-3xl p-6">
             <div
-              class="aspect-square w-full bg-gradient-to-br from-red-100 to-orange-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
-            >
-              <img src="" alt="" class="w-full h-full object-cover" />
-            </div>
-
-            <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
-              Silaban
-            </h4>
-
-            <p class="text-gray-700 text-sm leading-relaxed text-center">
-              "Pempeknya enak banget! Rasanya autentik dan bumbunya pas.
-              Keluarga saya jadi pelanggan setia Te'chi."
-            </p>
-          </div>
-
-          <div class="autoscroll-item bg-white rounded-3xl p-6">
-            <div
               class="aspect-square w-full bg-gradient-to-br from-orange-100 to-yellow-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
             >
-              <img src="" alt="" />
+              <img src="./assets/testi5.jpeg" alt="" />
             </div>
 
             <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
@@ -407,7 +405,7 @@
             <div
               class="aspect-square w-full bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
             >
-              <img src="" alt="" />
+              <img src="./assets/testi6.jpeg" alt="" />
             </div>
 
             <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
@@ -424,7 +422,7 @@
             <div
               class="aspect-square w-full bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
             >
-              <img src="" alt="" />
+              <img src="./assets/testi7.jpeg" alt="" />
             </div>
 
             <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
@@ -441,7 +439,11 @@
             <div
               class="aspect-square w-full bg-gradient-to-br from-red-100 to-orange-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
             >
-              <img src="" alt="" class="w-full h-full object-cover" />
+              <img
+                src="./assets/testi8.jpeg"
+                alt=""
+                class="w-full h-full object-cover"
+              />
             </div>
 
             <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
@@ -451,125 +453,6 @@
             <p class="text-gray-700 text-sm leading-relaxed text-center">
               "Pempeknya enak banget! Rasanya autentik dan bumbunya pas.
               Keluarga saya jadi pelanggan setia Te'chi."
-            </p>
-          </div>
-
-          <div class="autoscroll-item bg-white rounded-3xl p-6">
-            <div
-              class="aspect-square w-full bg-gradient-to-br from-orange-100 to-yellow-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
-            >
-              <img src="" alt="" />
-            </div>
-
-            <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
-              Gusri
-            </h4>
-
-            <p class="text-gray-700 text-sm leading-relaxed text-center">
-              "Sudah 3 tahun jadi langganan. Kualitasnya selalu konsisten dan
-              pengiriman cepat. Recommended!"
-            </p>
-          </div>
-
-          <div class="autoscroll-item bg-white rounded-3xl p-6">
-            <div
-              class="aspect-square w-full bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
-            >
-              <img src="" alt="" />
-            </div>
-
-            <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
-              Talon
-            </h4>
-
-            <p class="text-gray-700 text-sm leading-relaxed text-center">
-              "Pempek Te'chi selalu jadi pilihan untuk acara keluarga. Semua
-              tamu pasti suka!"
-            </p>
-          </div>
-
-          <div class="autoscroll-item bg-white rounded-3xl p-6">
-            <div
-              class="aspect-square w-full bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
-            >
-              <img src="" alt="" />
-            </div>
-
-            <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
-              Mbappe
-            </h4>
-
-            <p class="text-gray-700 text-sm leading-relaxed text-center">
-              "Harganya terjangkau tapi rasanya premium. Pelayanannya juga ramah
-              banget. Top!"
-            </p>
-          </div>
-
-          <div class="autoscroll-item bg-white rounded-3xl p-6">
-            <div
-              class="aspect-square w-full bg-gradient-to-br from-red-100 to-orange-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
-            >
-              <img src="" alt="" class="w-full h-full object-cover" />
-            </div>
-
-            <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
-              Silaban
-            </h4>
-
-            <p class="text-gray-700 text-sm leading-relaxed text-center">
-              "Pempeknya enak banget! Rasanya autentik dan bumbunya pas.
-              Keluarga saya jadi pelanggan setia Te'chi."
-            </p>
-          </div>
-
-          <div class="autoscroll-item bg-white rounded-3xl p-6">
-            <div
-              class="aspect-square w-full bg-gradient-to-br from-orange-100 to-yellow-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
-            >
-              <img src="" alt="" />
-            </div>
-
-            <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
-              Roy
-            </h4>
-
-            <p class="text-gray-700 text-sm leading-relaxed text-center">
-              "Sudah 3 tahun jadi langganan. Kualitasnya selalu konsisten dan
-              pengiriman cepat. Recommended!"
-            </p>
-          </div>
-
-          <div class="autoscroll-item bg-white rounded-3xl p-6">
-            <div
-              class="aspect-square w-full bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
-            >
-              <img src="" alt="" />
-            </div>
-
-            <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
-              Aan
-            </h4>
-
-            <p class="text-gray-700 text-sm leading-relaxed text-center">
-              "Pempek Te'chi selalu jadi pilihan untuk acara keluarga. Semua
-              tamu pasti suka!"
-            </p>
-          </div>
-
-          <div class="autoscroll-item bg-white rounded-3xl p-6">
-            <div
-              class="aspect-square w-full bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl mb-4 flex items-center justify-center overflow-hidden"
-            >
-              <img src="" alt="" />
-            </div>
-
-            <h4 class="text-lg font-bold text-gray-900 text-center mb-3">
-              Rudi
-            </h4>
-
-            <p class="text-gray-700 text-sm leading-relaxed text-center">
-              "Harganya terjangkau tapi rasanya premium. Pelayanannya juga ramah
-              banget. Top!"
             </p>
           </div>
         </div>
@@ -695,12 +578,11 @@
         <div class="grid md:grid-cols-3 gap-12 mb-12">
           <div>
             <div class="flex items-center space-x-4 mb-6">
-              <div
-                class="w-14 h-14 bg-gradient-to-br from-red-600 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl"
-              >
-                <span class="text-white font-black text-2xl">T</span>
-              </div>
-              <span class="text-3xl font-black text-white">Te'chi</span>
+              <img
+                src="./assets/Group 1193 (1).png"
+                alt=""
+                class="w-80 h-auto"
+              />
             </div>
             <p class="text-gray-400 text-lg leading-relaxed">
               Pempek khas Palembang dengan cita rasa autentik dan kualitas

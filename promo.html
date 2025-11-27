@@ -14,10 +14,6 @@
         font-family: "Poppins", sans-serif;
       }
 
-      body * {
-        cursor: none !important;
-      }
-
       /* Custom Cursor */
       .custom-cursor {
         width: 20px;
@@ -225,6 +221,19 @@
       #mobile-menu.open {
         transform: translateX(0);
       }
+
+      @media (min-width: 1024px) {
+        * {
+          cursor: none;
+        }
+      }
+
+      @media (max-width: 1023px) {
+        .custom-cursor,
+        .cursor-dot {
+          display: none !important;
+        }
+      }
     </style>
   </head>
   <body class="bg-gray-50 overflow-x-hidden">
@@ -344,7 +353,6 @@
           <div
             class="promo-card reveal glass rounded-3xl overflow-hidden shadow-2xl hover:shadow-red-500/20"
           >
-            <div class="ribbon">HEMAT 50%</div>
             <div class="relative overflow-hidden h-72">
               <img
                 src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=400&fit=crop"
@@ -366,17 +374,17 @@
                 Paket Super Hemat 50
               </h3>
               <p class="text-gray-600 mb-6 text-lg">
-                50 pempek mix + 1.5L cuko + sambal gratis
+                1 Vacum Pempek Isi 20 Pcs
               </p>
               <div class="flex items-center justify-between mb-6">
                 <div>
                   <p class="text-gray-400 line-through text-xl mb-1">
-                    Rp300.000
+                    Rp120.000
                   </p>
                   <p
                     class="text-5xl font-black bg-gradient-to-r from-red-900 to-orange-600 bg-clip-text text-transparent"
                   >
-                    Rp150.000
+                    Rp60.000
                   </p>
                 </div>
               </div>
@@ -391,7 +399,6 @@
           <div
             class="promo-card reveal glass rounded-3xl overflow-hidden shadow-2xl hover:shadow-orange-500/20"
           >
-            <div class="ribbon">HEMAT 40%</div>
             <div class="relative overflow-hidden h-72">
               <img
                 src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=600&h=400&fit=crop"
@@ -410,20 +417,20 @@
             </div>
             <div class="p-8">
               <h3 class="text-3xl font-black text-gray-900 mb-3">
-                Paket Spesial 30
+                Paket Spesial
               </h3>
               <p class="text-gray-600 mb-6 text-lg">
-                30 pempek premium + 1L cuko special
+                2 Kapal Selam + 40 Pempek Campur + 2 Pempek Lenjer Panjang
               </p>
               <div class="flex items-center justify-between mb-6">
                 <div>
                   <p class="text-gray-400 line-through text-xl mb-1">
-                    Rp200.000
+                    Rp250.000
                   </p>
                   <p
                     class="text-5xl font-black bg-gradient-to-r from-red-900 to-orange-600 bg-clip-text text-transparent"
                   >
-                    Rp120.000
+                    Rp210.000
                   </p>
                 </div>
               </div>
@@ -478,7 +485,8 @@
                 Promo Weekday
               </h3>
               <p class="text-gray-600 mb-4">
-                Diskon 20% untuk pembelian minimal 20 pcs
+                2 kapal selam
+20 pempek campur( kulit 5, telor 5, lenjer 5, adaan 5) 
               </p>
               <div class="flex items-center justify-between mb-4">
                 <div>
@@ -498,83 +506,7 @@
             </div>
           </div>
 
-          <div
-            class="promo-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
-          >
-            <div class="relative overflow-hidden h-64">
-              <img
-                src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500&h=400&fit=crop"
-                alt="Promo Weekend"
-                class="promo-image w-full h-full object-cover"
-              />
-              <div
-                class="absolute top-4 right-4 bg-purple-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg"
-              >
-                Sabtu - Minggu
-              </div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-2xl font-black text-gray-900 mb-2">
-                Promo Weekend
-              </h3>
-              <p class="text-gray-600 mb-4">
-                Beli 30 gratis 5 pcs pempek pilihan
-              </p>
-              <div class="flex items-center justify-between mb-4">
-                <div>
-                  <p class="text-sm text-gray-500">Bonus</p>
-                  <p
-                    class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
-                  >
-                    +5 Pcs
-                  </p>
-                </div>
-                <button
-                  class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-                >
-                  Pesan
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="promo-card reveal glass rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl"
-          >
-            <div class="relative overflow-hidden h-64">
-              <img
-                src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&h=400&fit=crop"
-                alt="Promo Bundling"
-                class="promo-image w-full h-full object-cover"
-              />
-              <div
-                class="absolute top-4 right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg"
-              >
-                Bundle Deal
-              </div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-2xl font-black text-gray-900 mb-2">
-                Promo Bundling
-              </h3>
-              <p class="text-gray-600 mb-4">
-                Paket bundling 40 pcs hemat sampai 30%
-              </p>
-              <div class="flex items-center justify-between mb-4">
-                <div>
-                  <p class="text-sm text-gray-500">Hemat</p>
-                  <p
-                    class="text-3xl font-black bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent"
-                  >
-                    30%
-                  </p>
-                </div>
-                <button
-                  class="bg-gradient-to-r from-red-900 to-red-700 hover:from-red-800 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-                >
-                  Pesan
-                </button>
-              </div>
+        
             </div>
           </div>
         </div>
@@ -754,12 +686,11 @@
         <div class="grid md:grid-cols-3 gap-12 mb-12">
           <div>
             <div class="flex items-center space-x-4 mb-6">
-              <div
-                class="w-14 h-14 bg-gradient-to-br from-red-600 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl"
-              >
-                <span class="text-white font-black text-2xl">T</span>
-              </div>
-              <span class="text-3xl font-black text-white">Te'chi</span>
+              <img
+                src="./assets/Group 1193 (1).png"
+                alt=""
+                class="w-80 h-auto"
+              />
             </div>
             <p class="text-gray-400 text-lg leading-relaxed">
               Pempek khas Palembang dengan cita rasa autentik dan kualitas
